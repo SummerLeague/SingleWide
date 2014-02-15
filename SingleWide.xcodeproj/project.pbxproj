@@ -21,6 +21,8 @@
 		D83DBD2A18AB1DF9004E182A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D83DBD0C18AB1DF9004E182A /* UIKit.framework */; };
 		D83DBD3218AB1DF9004E182A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D83DBD3018AB1DF9004E182A /* InfoPlist.strings */; };
 		D83DBD3418AB1DF9004E182A /* SingleWideTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D83DBD3318AB1DF9004E182A /* SingleWideTests.m */; };
+		D83DBD3F18AB37EA004E182A /* SLLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83DBD3E18AB37EA004E182A /* SLLocationViewController.m */; };
+		D87978DA18AC79E60042FF70 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87978D918AC79E60042FF70 /* MapKit.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +55,9 @@
 		D83DBD2F18AB1DF9004E182A /* SingleWideTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SingleWideTests-Info.plist"; sourceTree = "<group>"; };
 		D83DBD3118AB1DF9004E182A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D83DBD3318AB1DF9004E182A /* SingleWideTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SingleWideTests.m; sourceTree = "<group>"; };
+		D83DBD3D18AB37EA004E182A /* SLLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLLocationViewController.h; sourceTree = "<group>"; };
+		D83DBD3E18AB37EA004E182A /* SLLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLLocationViewController.m; sourceTree = "<group>"; };
+		D87978D918AC79E60042FF70 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +65,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D87978DA18AC79E60042FF70 /* MapKit.framework in Frameworks */,
 				D83DBD0B18AB1DF9004E182A /* CoreGraphics.framework in Frameworks */,
 				D83DBD0D18AB1DF9004E182A /* UIKit.framework in Frameworks */,
 				D83DBD0918AB1DF9004E182A /* Foundation.framework in Frameworks */,
@@ -101,6 +107,7 @@
 		D83DBD0718AB1DF9004E182A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D87978D918AC79E60042FF70 /* MapKit.framework */,
 				D83DBD0818AB1DF9004E182A /* Foundation.framework */,
 				D83DBD0A18AB1DF9004E182A /* CoreGraphics.framework */,
 				D83DBD0C18AB1DF9004E182A /* UIKit.framework */,
@@ -112,11 +119,9 @@
 		D83DBD0E18AB1DF9004E182A /* SingleWide */ = {
 			isa = PBXGroup;
 			children = (
+				D83DBD4018AB37F3004E182A /* Controllers */,
 				D83DBD1718AB1DF9004E182A /* SLAppDelegate.h */,
 				D83DBD1818AB1DF9004E182A /* SLAppDelegate.m */,
-				D83DBD1A18AB1DF9004E182A /* Main.storyboard */,
-				D83DBD1D18AB1DF9004E182A /* SLViewController.h */,
-				D83DBD1E18AB1DF9004E182A /* SLViewController.m */,
 				D83DBD2018AB1DF9004E182A /* Images.xcassets */,
 				D83DBD0F18AB1DF9004E182A /* Supporting Files */,
 			);
@@ -150,6 +155,18 @@
 				D83DBD3018AB1DF9004E182A /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		D83DBD4018AB37F3004E182A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				D83DBD1A18AB1DF9004E182A /* Main.storyboard */,
+				D83DBD3D18AB37EA004E182A /* SLLocationViewController.h */,
+				D83DBD3E18AB37EA004E182A /* SLLocationViewController.m */,
+				D83DBD1D18AB1DF9004E182A /* SLViewController.h */,
+				D83DBD1E18AB1DF9004E182A /* SLViewController.m */,
+			);
+			name = Controllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -250,6 +267,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D83DBD3F18AB37EA004E182A /* SLLocationViewController.m in Sources */,
 				D83DBD1518AB1DF9004E182A /* main.m in Sources */,
 				D83DBD1F18AB1DF9004E182A /* SLViewController.m in Sources */,
 				D83DBD1918AB1DF9004E182A /* SLAppDelegate.m in Sources */,
@@ -461,6 +479,7 @@
 				D83DBD3918AB1DF9004E182A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		D83DBD3A18AB1DF9004E182A /* Build configuration list for PBXNativeTarget "SingleWideTests" */ = {
 			isa = XCConfigurationList;
@@ -469,6 +488,7 @@
 				D83DBD3C18AB1DF9004E182A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
