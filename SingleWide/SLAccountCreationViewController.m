@@ -38,10 +38,11 @@
 - (IBAction)createAccount:(id)sender
 {
 	SLAccountCreator *accountCreator = [[SLAccountCreator alloc] init];
-		[accountCreator createUserWithNickname:_nicknameField.text password:_passwordField.text success:^{
+	[accountCreator createUserWithNickname:_nicknameField.text password:_passwordField.text success:^{
 		[self performSegueWithIdentifier:@"locationSegue" sender:self];
 	}
 	failure:^(NSString *errorMessage) {
+		NSLog(@"Error: %@", errorMessage);
 		[_nicknameField becomeFirstResponder];
 	}];
 }

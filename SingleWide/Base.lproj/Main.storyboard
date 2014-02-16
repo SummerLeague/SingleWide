@@ -7,7 +7,7 @@
         <!--View Controller - Single Wide-->
         <scene sceneID="ufC-wZ-h7g">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="SLViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="vXZ-lx-hvc" customClass="SLViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="n7O-B5-eIM"/>
                         <viewControllerLayoutGuide type="bottom" id="hgZ-hp-rSo"/>
@@ -71,7 +71,7 @@
         <!--Sign In View Controller - Sign In-->
         <scene sceneID="cjV-Nt-iMb">
             <objects>
-                <viewController title="Sign In" id="Ip6-Kl-awL" customClass="SLSignInViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignInViewController" title="Sign In" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ip6-Kl-awL" customClass="SLSignInViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="efu-da-SH9"/>
                         <viewControllerLayoutGuide type="bottom" id="qDk-FJ-nmA"/>
@@ -131,7 +131,7 @@
         <!--Location View Controller-->
         <scene sceneID="aYO-QB-Y4t">
             <objects>
-                <viewController id="arR-cQ-8Xf" customClass="SLLocationViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LocationViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="arR-cQ-8Xf" customClass="SLLocationViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="JKt-kr-k7y"/>
                         <viewControllerLayoutGuide type="bottom" id="UVZ-fz-oAJ"/>
@@ -230,7 +230,7 @@
         <!--Account Creation View Controller - Create an Account-->
         <scene sceneID="NVZ-bT-Kzn">
             <objects>
-                <viewController title="Create an Account" id="2Lh-oc-L6Q" customClass="SLAccountCreationViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AccountCreationViewController" title="Create an Account" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2Lh-oc-L6Q" customClass="SLAccountCreationViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="fKd-Bg-qtJ"/>
                         <viewControllerLayoutGuide type="bottom" id="lrM-xa-Pwh"/>
@@ -294,6 +294,6 @@
         <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="hF9-Vd-iOX"/>
+        <segue reference="S5Z-tV-nPK"/>
     </inferredMetricsTieBreakers>
 </document>
