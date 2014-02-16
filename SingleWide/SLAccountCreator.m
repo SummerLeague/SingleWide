@@ -28,7 +28,6 @@
 	return self;
 }
 
-
 - (NSURLSessionDataTask *)createUserWithNickname:(NSString *)nickname password:(NSString *)password success:(SuccessBlock)success failure:(FailureBlock)failure
 {
 	id params = @{

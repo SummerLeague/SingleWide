@@ -90,9 +90,10 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 	};
 
 	NSURLSessionDataTask *task = [[SLDoubleWideAPIClient sharedClient] GET:@"/venues/search" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-		if ([responseObject isEqualToString:[NSDictionary class]]) {
+		if ([responseObject isKindOfClass:[NSDictionary class]]) {
+			NSDictionary *responseDict = responseObject[ @"response" ];
 			NSMutableArray *venues = [NSMutableArray array];
-			NSArray *venuesArray = responseObject[ @"venues" ];
+			NSArray *venuesArray = responseDict[ @"venues" ];
 			for( NSDictionary *venueDict in venuesArray ) {
 				NSString *foursquareId = venueDict[ @"id" ];
 				NSString *venueName = venueDict[ @"name" ];

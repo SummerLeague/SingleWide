@@ -8,12 +8,6 @@
 
 #import "SLCollectionViewCell.h"
 
-@interface SLCollectionViewCell ()
-
-@property (nonatomic, weak) IBOutlet UILabel *label;
-
-@end
-
 @implementation SLCollectionViewCell
 
 @end

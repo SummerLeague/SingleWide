@@ -10,13 +10,21 @@
 @import MapKit;
 
 #import "SLLocationViewController.h"
+#import "SLVenuesDataSource.h"
+#import "SLDoubleWideAPIClient.h"
+#import "SLCollectionViewCell.h"
+#import "Venue.h"
 
-@interface SLLocationViewController () <CLLocationManagerDelegate>
+static void *NearbyVenuesContext = &NearbyVenuesContext;
+
+@interface SLLocationViewController () <SLVenuesDataSourceDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
+@property (nonatomic, strong) SLVenuesDataSource *venuesDataSource;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) MKPointAnnotation *annotation;
+@property (nonatomic, strong) NSURLSessionDataTask *nearbyVenuesTask;
 
 - (void)setupLocationManager;
 
@@ -30,10 +38,13 @@
 	
 	[self setupLocationManager];
 	
-	//self.fetchedResultsDataSource = [[SLFetchedResultsDataSource alloc] initWithFetchedResultsController:fetchedResultsController collectionView:self.collectionView];
-	//self.fetchedResultsDataSource.delegate = self;
-	//self.fetchedResultsDataSource.reusableCellIdentifier = @"cell";
+	self.venuesDataSource = [[SLVenuesDataSource alloc] initWithCollectionView:self.collectionView];
+	self.venuesDataSource.delegate = self;
+	self.venuesDataSource.reusableCellIdentifier = @"cell";
+	
 	self.annotation = [[MKPointAnnotation alloc] init];
+	
+	[self addObserver:self forKeyPath:@"nearbyVenues" options:NSKeyValueObservingOptionNew context:NearbyVenuesContext];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -52,7 +63,7 @@
 
 - (void)setupLocationManager
 {
-	const CLLocationDistance oneHundredMeters = 100.0;
+	const CLLocationDistance oneHundredMeters = 10.0;
 	const CLLocationAccuracy fiveMeters = 5.0;
 	
 	self.locationManager = [[CLLocationManager alloc] init];
@@ -62,6 +73,15 @@
 	self.locationManager.desiredAccuracy = fiveMeters;
 	
 	[self.locationManager startUpdatingLocation];
+}
+
+#pragma mark SLVenuesDataSourceDelegate
+
+- (void)configureCell:(id)cell withObject:(id)object
+{
+	Venue *venue = object;
+	SLCollectionViewCell *collectionViewCell = cell;
+	collectionViewCell.label.text = venue.name;
 }
 
 #pragma mark CLLocationManagerDelegate
@@ -81,9 +101,17 @@
 		NSLog(@"location: %@", location);
 		NSLog(@"lat: %lf", location.coordinate.latitude);
 		NSLog(@"long: %lf", location.coordinate.longitude);
+		
+		if (!self.nearbyVenuesTask) {
+			self.nearbyVenuesTask = [[SLDoubleWideAPIClient sharedClient] venuesNearCoordinate:location.coordinate completion:^(NSArray *venues, NSError *error) {
+				dispatch_async( dispatch_get_main_queue(), ^{
+					self.venuesDataSource.nearbyVenues = venues;
+					[self.collectionView reloadData];
+				});
+				self.nearbyVenuesTask = nil;
+			}];
+		}
 	}
-	
-	[self.locationManager stopUpdatingLocation];
 }
 
 @end

@@ -10,4 +10,6 @@
 
 @interface SLCollectionViewCell : UICollectionViewCell
 
+@property (nonatomic, weak) IBOutlet UILabel *label;
+
 @end

@@ -8,6 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
+@protocol SLVenuesDataSourceDelegate;
+
 @interface SLVenuesDataSource : NSObject
 
+@property (nonatomic, copy) NSString *reusableCellIdentifier;
+@property (nonatomic, weak) id<SLVenuesDataSourceDelegate> delegate;
+@property (nonatomic, strong) NSArray *nearbyVenues;
+
+- (id)initWithCollectionView:(UICollectionView *)collectionView;
+
+@end
+
+@protocol SLVenuesDataSourceDelegate <NSObject>
+@required
+- (void)configureCell:(id)cell withObject:(id)object;
 @end
