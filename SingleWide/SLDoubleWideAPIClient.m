@@ -90,15 +90,31 @@ static NSString *serverAddress = @"http://doublewide.herokuapp.com";
 	};
 
 	NSURLSessionDataTask *task = [[SLDoubleWideAPIClient sharedClient] GET:@"/venues/search" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-		if ([responseObject isKindOfClass:[NSArray class]]) {
+		if ([responseObject isEqualToString:[NSDictionary class]]) {
 			NSMutableArray *venues = [NSMutableArray array];
-			for (NSDictionary *venueDict in responseObject) {
-				NSString *venueId = venueDict[ @"_id" ];
-				NSString *foursquareId = venueDict[ @"foursquare_id" ];
-				Venue *venue = [[Venue alloc] initWithVenueId:venueId foursquareId:foursquareId];
+			NSArray *venuesArray = responseObject[ @"venues" ];
+			for( NSDictionary *venueDict in venuesArray ) {
+				NSString *foursquareId = venueDict[ @"id" ];
+				NSString *venueName = venueDict[ @"name" ];
+				/*
+				 "location": {
+				 "address": "1836 W Davis St",
+				 "lat": 32.74920395813301,
+				 "lng": -96.84974424775343,
+				 "distance": 23,
+				 "postalCode": "75208",
+				 "cc": "US",
+				 "city": "Dallas",
+				 "state": "TX",
+				 "country": "United States"
+				 },
+				*/
+				
+				Venue *venue = [[Venue alloc] initWithVenueId:@"" foursquareId:foursquareId];
+				venue.name = venueName;
 				[venues addObject:venue];
 			}
-
+			
 			if (completion) {
 				completion(venues, nil);
 			}

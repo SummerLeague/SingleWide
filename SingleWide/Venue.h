@@ -12,6 +12,7 @@
 
 @property (nonatomic, copy) NSString *venueId;
 @property (nonatomic, copy) NSString *foursquareId;
+@property (nonatomic, copy) NSString *name;
 
 - (id)initWithVenueId:(NSString *)venueId foursquareId:foursquareId;
 
