@@ -46,9 +46,6 @@
 
 - (IBAction)signIn:(id)sender
 {
-	[self performSegueWithIdentifier:@"locationSegue" sender:self];
-	return;
-	
 	SLUserAuthenticator *authenticator = [[SLUserAuthenticator alloc] init];
 	[authenticator loginWithNickname:self.nicknameTextField.text password:self.passwordTextField.text success:^{
 		[self performSegueWithIdentifier:@"locationSegue" sender:self];

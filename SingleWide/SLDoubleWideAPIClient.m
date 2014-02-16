@@ -14,7 +14,7 @@
 
 //static NSString *serverAddress = @"http://127.0.0.1:8888";
 //static NSString *serverAddress = @"http://10.0.1.7:8888";
-static NSString *serverAddress = @"http://doublewide.herokuapp.com";
+static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 
 @interface SLDoubleWideAPIClient ()
 

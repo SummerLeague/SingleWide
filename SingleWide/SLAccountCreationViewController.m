@@ -37,9 +37,6 @@
 
 - (IBAction)createAccount:(id)sender
 {
-	[self performSegueWithIdentifier:@"locationSegue" sender:self];
-	return;
-
 	SLAccountCreator *accountCreator = [[SLAccountCreator alloc] init];
 		[accountCreator createUserWithNickname:_nicknameField.text password:_passwordField.text success:^{
 		[self performSegueWithIdentifier:@"locationSegue" sender:self];
