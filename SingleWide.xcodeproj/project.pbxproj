@@ -30,6 +30,11 @@
 		D87978E718B03F250042FF70 /* SLDoubleWideAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978E618B03F250042FF70 /* SLDoubleWideAPIClient.m */; };
 		D87978EB18B046FB0042FF70 /* SLAccountCreationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978EA18B046FB0042FF70 /* SLAccountCreationViewController.m */; };
 		D87978EE18B047960042FF70 /* SLAccountCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978ED18B047960042FF70 /* SLAccountCreator.m */; };
+		D87978F518B05A440042FF70 /* SLCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978F418B05A440042FF70 /* SLCollectionViewCell.m */; };
+		D87978F818B05A8D0042FF70 /* SLVenuesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978F718B05A8D0042FF70 /* SLVenuesDataSource.m */; };
+		D87978FC18B05D5D0042FF70 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978FB18B05D5D0042FF70 /* Venue.m */; };
+		D87978FF18B0602A0042FF70 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978FE18B0602A0042FF70 /* Checkin.m */; };
+		D879790218B060520042FF70 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D879790118B060520042FF70 /* User.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -79,6 +84,16 @@
 		D87978EA18B046FB0042FF70 /* SLAccountCreationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAccountCreationViewController.m; sourceTree = "<group>"; };
 		D87978EC18B047960042FF70 /* SLAccountCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLAccountCreator.h; sourceTree = "<group>"; };
 		D87978ED18B047960042FF70 /* SLAccountCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAccountCreator.m; sourceTree = "<group>"; };
+		D87978F318B05A440042FF70 /* SLCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLCollectionViewCell.h; sourceTree = "<group>"; };
+		D87978F418B05A440042FF70 /* SLCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLCollectionViewCell.m; sourceTree = "<group>"; };
+		D87978F618B05A8D0042FF70 /* SLVenuesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLVenuesDataSource.h; sourceTree = "<group>"; };
+		D87978F718B05A8D0042FF70 /* SLVenuesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLVenuesDataSource.m; sourceTree = "<group>"; };
+		D87978FA18B05D5D0042FF70 /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
+		D87978FB18B05D5D0042FF70 /* Venue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Venue.m; sourceTree = "<group>"; };
+		D87978FD18B0602A0042FF70 /* Checkin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Checkin.h; sourceTree = "<group>"; };
+		D87978FE18B0602A0042FF70 /* Checkin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Checkin.m; sourceTree = "<group>"; };
+		D879790018B060520042FF70 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
+		D879790118B060520042FF70 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,9 +158,11 @@
 		D83DBD0E18AB1DF9004E182A /* SingleWide */ = {
 			isa = PBXGroup;
 			children = (
+				D87978F918B05D520042FF70 /* Model */,
 				D87978E118B03D570042FF70 /* Classes */,
 				D83DBD4018AB37F3004E182A /* Controllers */,
 				D87978E818B041300042FF70 /* ServerAPI */,
+				D87978F218B05A330042FF70 /* Views */,
 				D83DBD2018AB1DF9004E182A /* Images.xcassets */,
 				D83DBD0F18AB1DF9004E182A /* Supporting Files */,
 			);
@@ -202,6 +219,8 @@
 			children = (
 				D83DBD1718AB1DF9004E182A /* SLAppDelegate.h */,
 				D83DBD1818AB1DF9004E182A /* SLAppDelegate.m */,
+				D87978F618B05A8D0042FF70 /* SLVenuesDataSource.h */,
+				D87978F718B05A8D0042FF70 /* SLVenuesDataSource.m */,
 			);
 			name = Classes;
 			sourceTree = "<group>";
@@ -219,6 +238,28 @@
 				D87978E618B03F250042FF70 /* SLDoubleWideAPIClient.m */,
 			);
 			name = ServerAPI;
+			sourceTree = "<group>";
+		};
+		D87978F218B05A330042FF70 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				D87978F318B05A440042FF70 /* SLCollectionViewCell.h */,
+				D87978F418B05A440042FF70 /* SLCollectionViewCell.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		D87978F918B05D520042FF70 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D87978FD18B0602A0042FF70 /* Checkin.h */,
+				D87978FE18B0602A0042FF70 /* Checkin.m */,
+				D879790018B060520042FF70 /* User.h */,
+				D879790118B060520042FF70 /* User.m */,
+				D87978FA18B05D5D0042FF70 /* Venue.h */,
+				D87978FB18B05D5D0042FF70 /* Venue.m */,
+			);
+			name = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -354,8 +395,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D87978FC18B05D5D0042FF70 /* Venue.m in Sources */,
 				D83DBD3F18AB37EA004E182A /* SLLocationViewController.m in Sources */,
+				D87978F518B05A440042FF70 /* SLCollectionViewCell.m in Sources */,
 				D87978E418B03D640042FF70 /* SLCredentialStore.m in Sources */,
+				D87978F818B05A8D0042FF70 /* SLVenuesDataSource.m in Sources */,
+				D879790218B060520042FF70 /* User.m in Sources */,
 				D87978E018B03B640042FF70 /* SLUserAuthenticator.m in Sources */,
 				D87978EB18B046FB0042FF70 /* SLAccountCreationViewController.m in Sources */,
 				D83DBD1518AB1DF9004E182A /* main.m in Sources */,
@@ -364,6 +409,7 @@
 				D83DBD1F18AB1DF9004E182A /* SLViewController.m in Sources */,
 				D87978E718B03F250042FF70 /* SLDoubleWideAPIClient.m in Sources */,
 				D83DBD1918AB1DF9004E182A /* SLAppDelegate.m in Sources */,
+				D87978FF18B0602A0042FF70 /* Checkin.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

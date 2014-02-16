@@ -7,6 +7,7 @@
 //
 
 #import "SLSignInViewController.h"
+#import "SLUserAuthenticator.h"
 
 @interface SLSignInViewController ()
 
@@ -34,12 +35,12 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-	//if( [segue.identifier isEqualToString:@"scannerSegue"] )
+	if( [segue.identifier isEqualToString:@"locationSegue"] )
 	{
-		//SLUserAuthenticator *authenticator = [[SLUserAuthenticator alloc] init];
-		//[authenticator loginWithStoredCredentials:^{} failure:^(NSString *errorMessage) {}];
+		SLUserAuthenticator *authenticator = [[SLUserAuthenticator alloc] init];
+		[authenticator loginWithStoredCredentials:^{} failure:^(NSString *errorMessage) {}];
 	}
-	//else
+	else
 	{
 		return [super prepareForSegue:segue sender:sender];
 	}
@@ -47,19 +48,16 @@
 
 - (IBAction)signIn:(id)sender
 {
-//	SLUserAuthenticator *authenticator = [[SLUserAuthenticator alloc] init];
-//	[authenticator loginWithNickname:_nicknameField.text password:_passwordField.text success:
-	 
-	 
-	 /*^{
-										 // Dismiss HUD.
-										 [SVProgressHUD dismiss];
-										 [self performSegueWithIdentifier:@"scannerSegue" sender:self];
-									 }
-									 failure:^(NSString *errorMessage) {
-										 [SVProgressHUD showErrorWithStatus:errorMessage];
-										 [_nicknameField becomeFirstResponder];
-									 }];*/
+	[self performSegueWithIdentifier:@"locationSegue" sender:self];
+	return;
+	
+	SLUserAuthenticator *authenticator = [[SLUserAuthenticator alloc] init];
+	[authenticator loginWithNickname:self.nicknameTextField.text password:self.passwordTextField.text success:^{
+		[self performSegueWithIdentifier:@"locationSegue" sender:self];
+	}
+	failure:^(NSString *errorMessage) {
+		[self.nicknameTextField becomeFirstResponder];
+	}];
 }
 
 @end
