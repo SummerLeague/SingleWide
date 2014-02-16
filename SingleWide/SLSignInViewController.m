@@ -35,13 +35,11 @@
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-	if( [segue.identifier isEqualToString:@"locationSegue"] )
-	{
+	if ([segue.identifier isEqualToString:@"locationSegue"]) {
 		SLUserAuthenticator *authenticator = [[SLUserAuthenticator alloc] init];
 		[authenticator loginWithStoredCredentials:^{} failure:^(NSString *errorMessage) {}];
 	}
-	else
-	{
+	else {
 		return [super prepareForSegue:segue sender:sender];
 	}
 }

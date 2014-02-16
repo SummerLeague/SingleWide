@@ -68,8 +68,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-	for( CLLocation *location in locations )
-	{
+	for (CLLocation *location in locations) {
 		MKCoordinateRegion region = MKCoordinateRegionMake(location.coordinate, MKCoordinateSpanMake(0.0035, 0.0035));
 		[self.mapView setCenterCoordinate:location.coordinate animated:YES];
 		[self.mapView setRegion:region animated:YES];
@@ -78,7 +77,13 @@
 		self.annotation.title = @"Current Location";
 		self.annotation.subtitle = @"Look behind you.";
 		[self.mapView addAnnotation:self.annotation];
+		
+		NSLog(@"location: %@", location);
+		NSLog(@"lat: %lf", location.coordinate.latitude);
+		NSLog(@"long: %lf", location.coordinate.longitude);
 	}
+	
+	[self.locationManager stopUpdatingLocation];
 }
 
 @end
