@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D05F35A0D7E84C13A1A0084C /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A527DB2D41774765B3A05CF5 /* libPods.a */; };
 		D83DBD0918AB1DF9004E182A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D83DBD0818AB1DF9004E182A /* Foundation.framework */; };
 		D83DBD0B18AB1DF9004E182A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D83DBD0A18AB1DF9004E182A /* CoreGraphics.framework */; };
 		D83DBD0D18AB1DF9004E182A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D83DBD0C18AB1DF9004E182A /* UIKit.framework */; };
@@ -23,6 +24,12 @@
 		D83DBD3418AB1DF9004E182A /* SingleWideTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D83DBD3318AB1DF9004E182A /* SingleWideTests.m */; };
 		D83DBD3F18AB37EA004E182A /* SLLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83DBD3E18AB37EA004E182A /* SLLocationViewController.m */; };
 		D87978DA18AC79E60042FF70 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87978D918AC79E60042FF70 /* MapKit.framework */; };
+		D87978DD18B037F30042FF70 /* SLSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978DC18B037F30042FF70 /* SLSignInViewController.m */; };
+		D87978E018B03B640042FF70 /* SLUserAuthenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978DF18B03B640042FF70 /* SLUserAuthenticator.m */; };
+		D87978E418B03D640042FF70 /* SLCredentialStore.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978E318B03D640042FF70 /* SLCredentialStore.m */; };
+		D87978E718B03F250042FF70 /* SLDoubleWideAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978E618B03F250042FF70 /* SLDoubleWideAPIClient.m */; };
+		D87978EB18B046FB0042FF70 /* SLAccountCreationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978EA18B046FB0042FF70 /* SLAccountCreationViewController.m */; };
+		D87978EE18B047960042FF70 /* SLAccountCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978ED18B047960042FF70 /* SLAccountCreator.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +43,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7B4B4424E3D643DB9A420A43 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		A527DB2D41774765B3A05CF5 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D83DBD0518AB1DF9004E182A /* SingleWide.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SingleWide.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D83DBD0818AB1DF9004E182A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		D83DBD0A18AB1DF9004E182A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -58,6 +67,18 @@
 		D83DBD3D18AB37EA004E182A /* SLLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLLocationViewController.h; sourceTree = "<group>"; };
 		D83DBD3E18AB37EA004E182A /* SLLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLLocationViewController.m; sourceTree = "<group>"; };
 		D87978D918AC79E60042FF70 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		D87978DB18B037F30042FF70 /* SLSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSignInViewController.h; sourceTree = "<group>"; };
+		D87978DC18B037F30042FF70 /* SLSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSignInViewController.m; sourceTree = "<group>"; };
+		D87978DE18B03B640042FF70 /* SLUserAuthenticator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLUserAuthenticator.h; sourceTree = "<group>"; };
+		D87978DF18B03B640042FF70 /* SLUserAuthenticator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLUserAuthenticator.m; sourceTree = "<group>"; };
+		D87978E218B03D640042FF70 /* SLCredentialStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLCredentialStore.h; sourceTree = "<group>"; };
+		D87978E318B03D640042FF70 /* SLCredentialStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLCredentialStore.m; sourceTree = "<group>"; };
+		D87978E518B03F250042FF70 /* SLDoubleWideAPIClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLDoubleWideAPIClient.h; sourceTree = "<group>"; };
+		D87978E618B03F250042FF70 /* SLDoubleWideAPIClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLDoubleWideAPIClient.m; sourceTree = "<group>"; };
+		D87978E918B046FB0042FF70 /* SLAccountCreationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLAccountCreationViewController.h; sourceTree = "<group>"; };
+		D87978EA18B046FB0042FF70 /* SLAccountCreationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAccountCreationViewController.m; sourceTree = "<group>"; };
+		D87978EC18B047960042FF70 /* SLAccountCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLAccountCreator.h; sourceTree = "<group>"; };
+		D87978ED18B047960042FF70 /* SLAccountCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAccountCreator.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +90,7 @@
 				D83DBD0B18AB1DF9004E182A /* CoreGraphics.framework in Frameworks */,
 				D83DBD0D18AB1DF9004E182A /* UIKit.framework in Frameworks */,
 				D83DBD0918AB1DF9004E182A /* Foundation.framework in Frameworks */,
+				D05F35A0D7E84C13A1A0084C /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,6 +114,7 @@
 				D83DBD2D18AB1DF9004E182A /* SingleWideTests */,
 				D83DBD0718AB1DF9004E182A /* Frameworks */,
 				D83DBD0618AB1DF9004E182A /* Products */,
+				7B4B4424E3D643DB9A420A43 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -112,6 +135,7 @@
 				D83DBD0A18AB1DF9004E182A /* CoreGraphics.framework */,
 				D83DBD0C18AB1DF9004E182A /* UIKit.framework */,
 				D83DBD2718AB1DF9004E182A /* XCTest.framework */,
+				A527DB2D41774765B3A05CF5 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -119,9 +143,9 @@
 		D83DBD0E18AB1DF9004E182A /* SingleWide */ = {
 			isa = PBXGroup;
 			children = (
+				D87978E118B03D570042FF70 /* Classes */,
 				D83DBD4018AB37F3004E182A /* Controllers */,
-				D83DBD1718AB1DF9004E182A /* SLAppDelegate.h */,
-				D83DBD1818AB1DF9004E182A /* SLAppDelegate.m */,
+				D87978E818B041300042FF70 /* ServerAPI */,
 				D83DBD2018AB1DF9004E182A /* Images.xcassets */,
 				D83DBD0F18AB1DF9004E182A /* Supporting Files */,
 			);
@@ -161,12 +185,40 @@
 			isa = PBXGroup;
 			children = (
 				D83DBD1A18AB1DF9004E182A /* Main.storyboard */,
+				D87978E918B046FB0042FF70 /* SLAccountCreationViewController.h */,
+				D87978EA18B046FB0042FF70 /* SLAccountCreationViewController.m */,
 				D83DBD3D18AB37EA004E182A /* SLLocationViewController.h */,
 				D83DBD3E18AB37EA004E182A /* SLLocationViewController.m */,
+				D87978DB18B037F30042FF70 /* SLSignInViewController.h */,
+				D87978DC18B037F30042FF70 /* SLSignInViewController.m */,
 				D83DBD1D18AB1DF9004E182A /* SLViewController.h */,
 				D83DBD1E18AB1DF9004E182A /* SLViewController.m */,
 			);
 			name = Controllers;
+			sourceTree = "<group>";
+		};
+		D87978E118B03D570042FF70 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				D83DBD1718AB1DF9004E182A /* SLAppDelegate.h */,
+				D83DBD1818AB1DF9004E182A /* SLAppDelegate.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		D87978E818B041300042FF70 /* ServerAPI */ = {
+			isa = PBXGroup;
+			children = (
+				D87978EC18B047960042FF70 /* SLAccountCreator.h */,
+				D87978ED18B047960042FF70 /* SLAccountCreator.m */,
+				D87978DE18B03B640042FF70 /* SLUserAuthenticator.h */,
+				D87978DF18B03B640042FF70 /* SLUserAuthenticator.m */,
+				D87978E218B03D640042FF70 /* SLCredentialStore.h */,
+				D87978E318B03D640042FF70 /* SLCredentialStore.m */,
+				D87978E518B03F250042FF70 /* SLDoubleWideAPIClient.h */,
+				D87978E618B03F250042FF70 /* SLDoubleWideAPIClient.m */,
+			);
+			name = ServerAPI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -176,9 +228,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = D83DBD3718AB1DF9004E182A /* Build configuration list for PBXNativeTarget "SingleWide" */;
 			buildPhases = (
+				C992AACB0C074A30AC27AD89 /* Check Pods Manifest.lock */,
 				D83DBD0118AB1DF9004E182A /* Sources */,
 				D83DBD0218AB1DF9004E182A /* Frameworks */,
 				D83DBD0318AB1DF9004E182A /* Resources */,
+				A48230D925F74946B18201BA /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -262,14 +316,53 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		A48230D925F74946B18201BA /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C992AACB0C074A30AC27AD89 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		D83DBD0118AB1DF9004E182A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				D83DBD3F18AB37EA004E182A /* SLLocationViewController.m in Sources */,
+				D87978E418B03D640042FF70 /* SLCredentialStore.m in Sources */,
+				D87978E018B03B640042FF70 /* SLUserAuthenticator.m in Sources */,
+				D87978EB18B046FB0042FF70 /* SLAccountCreationViewController.m in Sources */,
 				D83DBD1518AB1DF9004E182A /* main.m in Sources */,
+				D87978EE18B047960042FF70 /* SLAccountCreator.m in Sources */,
+				D87978DD18B037F30042FF70 /* SLSignInViewController.m in Sources */,
 				D83DBD1F18AB1DF9004E182A /* SLViewController.m in Sources */,
+				D87978E718B03F250042FF70 /* SLDoubleWideAPIClient.m in Sources */,
 				D83DBD1918AB1DF9004E182A /* SLAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -394,6 +487,7 @@
 		};
 		D83DBD3818AB1DF9004E182A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B4B4424E3D643DB9A420A43 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -407,6 +501,7 @@
 		};
 		D83DBD3918AB1DF9004E182A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B4B4424E3D643DB9A420A43 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
