@@ -30,6 +30,7 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 - (IBAction)resetLocation:(id)sender;
 
 - (void)setupLocationManager;
+- (void)enableResetButton;
 - (void)setVenues:(NSArray *)venues;
 
 @end
@@ -49,9 +50,9 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 	self.venuesDataSource.reusableCellIdentifier = @"cell";
 	
 	self.annotation = [[MKPointAnnotation alloc] init];
+	[self resetLocation:self];
 	
 	self.activityIndicator.alpha = 1.0f;
-	self.resetButton.title = @"";
 	
 	[self addObserver:self forKeyPath:@"nearbyVenues" options:NSKeyValueObservingOptionNew context:NearbyVenuesContext];
 }
@@ -90,7 +91,7 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 				self.annotation.title = _selectedVenue.name;
 				self.annotation.subtitle = @"";
 				
-				self.resetButton.title = @"Reset";
+				[self enableResetButton];
 			}];
 		}
 	}
@@ -104,6 +105,11 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 	self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
 	
 	[self.locationManager startUpdatingLocation];
+}
+
+- (void)enableResetButton
+{
+	self.resetButton.title = @"Reset";
 }
 
 - (void)setVenues:(NSArray *)venues
@@ -133,8 +139,6 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 	[self.mapView setRegion:region animated:YES];
 	
 	self.annotation.coordinate = location.coordinate;
-	self.annotation.title = @"Current Location";
-	self.annotation.subtitle = @"Look behind you.";
 	[self.mapView addAnnotation:self.annotation];
 	[self.mapView selectAnnotation:self.annotation animated:YES];
 
