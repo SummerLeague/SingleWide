@@ -209,6 +209,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="LrD-w1-Nr9" id="10c-gJ-eBp"/>
                         <outlet property="mapView" destination="IIx-hI-6aC" id="jAS-Mh-nYU"/>
+                        <outlet property="resetButton" destination="b6H-4y-jit" id="u0F-5C-svr"/>
                         <outlet property="tableView" destination="fCZ-qQ-G4A" id="Etv-1o-kFg"/>
                     </connections>
                 </viewController>

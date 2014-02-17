@@ -16,14 +16,16 @@
 
 static void *NearbyVenuesContext = &NearbyVenuesContext;
 
-@interface SLCheckInViewController () <SLVenuesDataSourceDelegate, CLLocationManagerDelegate>
+@interface SLCheckInViewController () <SLVenuesDataSourceDelegate, CLLocationManagerDelegate, UITableViewDelegate>
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
+@property (nonatomic, weak) IBOutlet UIBarButtonItem *resetButton;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) SLVenuesDataSource *venuesDataSource;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) MKPointAnnotation *annotation;
+@property (nonatomic, strong) Venue *selectedVenue;
 
 - (void)setupLocationManager;
 - (void)setVenues:(NSArray *)venues;
@@ -38,19 +40,18 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 	
 	[self setupLocationManager];
 	
+	self.tableView.delegate = self;
+	
 	self.venuesDataSource = [[SLVenuesDataSource alloc] initWithTableView:self.tableView];
 	self.venuesDataSource.delegate = self;
 	self.venuesDataSource.reusableCellIdentifier = @"cell";
 	
 	self.annotation = [[MKPointAnnotation alloc] init];
+	
 	self.activityIndicator.alpha = 1.0f;
+	self.resetButton.title = @"";
 	
 	[self addObserver:self forKeyPath:@"nearbyVenues" options:NSKeyValueObservingOptionNew context:NearbyVenuesContext];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-	[super viewWillAppear:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -84,6 +85,7 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 	Venue *venue = object;
 	UITableViewCell *tableViewCell = cell;
 	tableViewCell.textLabel.text = venue.name;
+	tableViewCell.accessoryType = ( object == self.selectedVenue ) ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
 }
 
 #pragma mark CLLocationManagerDelegate
@@ -101,16 +103,21 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 	[self.mapView selectAnnotation:self.annotation animated:YES];
 	[self.mapView addAnnotation:self.annotation];
 	
-	NSLog(@"location: %@", location);
-	NSLog(@"lat: %lf", location.coordinate.latitude);
-	NSLog(@"long: %lf", location.coordinate.longitude);
-	
 	[[SLDoubleWideAPIClient sharedClient] venuesNearCoordinate:location.coordinate completion:^(NSArray *venues, NSError *error) {
 		dispatch_async( dispatch_get_main_queue(), ^{
 			[self setVenues:venues];
 		});
 	}];
+	
 	[self.locationManager stopUpdatingLocation];
+}
+
+#pragma mark UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	self.selectedVenue = [self.venuesDataSource.nearbyVenues objectAtIndex:indexPath.row];
+	[self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 @end
