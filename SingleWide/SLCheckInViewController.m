@@ -27,6 +27,8 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 @property (nonatomic, strong) MKPointAnnotation *annotation;
 @property (nonatomic, strong) Venue *selectedVenue;
 
+- (IBAction)resetLocation:(id)sender;
+
 - (void)setupLocationManager;
 - (void)setVenues:(NSArray *)venues;
 
@@ -61,6 +63,39 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 	[self.locationManager stopUpdatingLocation];
 }
 
+- (IBAction)resetLocation:(id)sender
+{
+	if (self.selectedVenue) {
+		self.selectedVenue = nil;
+		
+		self.resetButton.title = @"";
+		self.annotation.title = @"Current Location";
+		self.annotation.subtitle = @"Look behind you.";
+		
+		[self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationAutomatic];
+	}
+}
+
+- (void)setSelectedVenue:(Venue *)selectedVenue
+{
+	if (_selectedVenue != selectedVenue) {
+		_selectedVenue = selectedVenue;
+		
+		if (_selectedVenue) {
+			[[SLDoubleWideAPIClient sharedClient] checkinWithCoordinate:self.annotation.coordinate foursquareId:_selectedVenue.foursquareId completion:^(Checkin *checkin, NSError *error) {
+				if (error) {
+					NSLog(@"Error: %@", error);
+				}
+				
+				self.annotation.title = _selectedVenue.name;
+				self.annotation.subtitle = @"";
+				
+				self.resetButton.title = @"Reset";
+			}];
+		}
+	}
+}
+
 - (void)setupLocationManager
 {
 	self.locationManager = [[CLLocationManager alloc] init];
@@ -85,7 +120,7 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 	Venue *venue = object;
 	UITableViewCell *tableViewCell = cell;
 	tableViewCell.textLabel.text = venue.name;
-	tableViewCell.accessoryType = ( object == self.selectedVenue ) ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
+	tableViewCell.accessoryType = (object == self.selectedVenue) ? UITableViewCellAccessoryCheckmark : UITableViewCellAccessoryNone;
 }
 
 #pragma mark CLLocationManagerDelegate
@@ -100,11 +135,11 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 	self.annotation.coordinate = location.coordinate;
 	self.annotation.title = @"Current Location";
 	self.annotation.subtitle = @"Look behind you.";
-	[self.mapView selectAnnotation:self.annotation animated:YES];
 	[self.mapView addAnnotation:self.annotation];
-	
+	[self.mapView selectAnnotation:self.annotation animated:YES];
+
 	[[SLDoubleWideAPIClient sharedClient] venuesNearCoordinate:location.coordinate completion:^(NSArray *venues, NSError *error) {
-		dispatch_async( dispatch_get_main_queue(), ^{
+		dispatch_async(dispatch_get_main_queue(), ^{
 			[self setVenues:venues];
 		});
 	}];
@@ -116,7 +151,10 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	self.selectedVenue = [self.venuesDataSource.nearbyVenues objectAtIndex:indexPath.row];
+	if (!self.selectedVenue) {
+		self.selectedVenue = [self.venuesDataSource.nearbyVenues objectAtIndex:indexPath.row];
+	}
+	
 	[self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 

@@ -94,7 +94,7 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 			NSDictionary *responseDict = responseObject[ @"response" ];
 			NSMutableArray *venues = [NSMutableArray array];
 			NSArray *venuesArray = responseDict[ @"venues" ];
-			for( NSDictionary *venueDict in venuesArray ) {
+			for (NSDictionary *venueDict in venuesArray) {
 				NSString *foursquareId = venueDict[ @"id" ];
 				NSString *venueName = venueDict[ @"name" ];
 				/*
@@ -240,6 +240,9 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 		@"lat": [NSNumber numberWithDouble:coordinate.latitude],
 		@"foursquare_id": foursquareId
 	};
+	
+	//NSString *path = [NSString stringWithFormat:@"/checkins?lng=%@&lat=%@&foursquare_id=%@", [NSNumber numberWithDouble:coordinate.longitude], [NSNumber numberWithDouble:coordinate.latitude], foursquareId];
+	//NSLog(@"path: %@", path);
 	
 	NSURLSessionDataTask *task = [[SLDoubleWideAPIClient sharedClient] POST:@"/checkins" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
 		if ([responseObject isKindOfClass:[NSDictionary class]]) {

@@ -16,6 +16,6 @@ typedef void (^FailureBlock)(NSString *errorMessage);
 - (NSURLSessionDataTask *)loginWithNickname:(NSString *)nickname password:(NSString *)password success:(SuccessBlock)success failure:(FailureBlock)failure;
 
 - (void)loginWithStoredCredentials:(SuccessBlock)success failure:(FailureBlock)failure;
-- (void)refreshTokenAndRetryTask:(NSURLSessionDataTask *)task completion:(void (^)(NSURLResponse *response, id responseObject, NSError *error ) )completion authenticationFailure:(void (^)(NSURLSessionDataTask *task, NSString *errorMessage ) )authenticationFailure;
+- (void)refreshTokenAndRetryTask:(NSURLSessionDataTask *)task completion:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completion authenticationFailure:(void (^)(NSURLSessionDataTask *task, NSString *errorMessage))authenticationFailure;
 
 @end

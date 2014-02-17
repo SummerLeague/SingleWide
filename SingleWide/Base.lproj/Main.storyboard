@@ -204,7 +204,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Check In" id="Qnd-VP-Q29">
-                        <barButtonItem key="rightBarButtonItem" title="Reset" id="b6H-4y-jit"/>
+                        <barButtonItem key="rightBarButtonItem" title="Reset" id="b6H-4y-jit">
+                            <connections>
+                                <action selector="resetLocation:" destination="arR-cQ-8Xf" id="S20-I0-VOK"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="activityIndicator" destination="LrD-w1-Nr9" id="10c-gJ-eBp"/>

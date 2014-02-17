@@ -68,7 +68,7 @@
 	[self loginWithNickname:nickname password:password success:success failure:failure];
 }
 
-- (void)refreshTokenAndRetryTask:(NSURLSessionDataTask *)task completion:(void (^)(NSURLResponse *response, id responseObject, NSError *error ) )completion authenticationFailure:(void (^)(NSURLSessionDataTask *task, NSString *errorMessage ) )authenticationFailure
+- (void)refreshTokenAndRetryTask:(NSURLSessionDataTask *)task completion:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completion authenticationFailure:(void (^)(NSURLSessionDataTask *task, NSString *errorMessage))authenticationFailure
 {
 	NSString *nickname = [_credentialStore nickname];
 	NSString *password = [_credentialStore password];
