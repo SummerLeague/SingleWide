@@ -24,7 +24,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="Ip6-Kl-awL" kind="push" id="Owo-kb-Y0V"/>
+                                    <segue destination="Ip6-Kl-awL" kind="push" identifier="signInSegue" id="Owo-kb-Y0V"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2J3-bQ-0vE">
@@ -35,7 +35,7 @@
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="2Lh-oc-L6Q" kind="push" id="FtH-hD-8bW"/>
+                                    <segue destination="2Lh-oc-L6Q" kind="push" identifier="accountCreationSegue" id="FtH-hD-8bW"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -56,7 +56,7 @@
         <!--Navigation Controller-->
         <scene sceneID="UUW-hj-T6t">
             <objects>
-                <navigationController definesPresentationContext="YES" id="TqM-iD-Leg" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="MainNavigationController" definesPresentationContext="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="TqM-iD-Leg" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="oaO-47-EPO">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -219,6 +219,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="Qnd-VP-Q29"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="LrD-w1-Nr9" id="10c-gJ-eBp"/>
                         <outlet property="collectionView" destination="IRf-qi-qZh" id="edJ-oq-F2r"/>
                         <outlet property="mapView" destination="IIx-hI-6aC" id="jAS-Mh-nYU"/>
                     </connections>

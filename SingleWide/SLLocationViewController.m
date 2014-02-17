@@ -21,6 +21,7 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
+@property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) SLVenuesDataSource *venuesDataSource;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) MKPointAnnotation *annotation;
@@ -43,6 +44,7 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 	self.venuesDataSource.reusableCellIdentifier = @"cell";
 	
 	self.annotation = [[MKPointAnnotation alloc] init];
+	self.activityIndicator.alpha = 1.0f;
 	
 	[self addObserver:self forKeyPath:@"nearbyVenues" options:NSKeyValueObservingOptionNew context:NearbyVenuesContext];
 }
@@ -64,13 +66,12 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 - (void)setupLocationManager
 {
 	const CLLocationDistance oneHundredMeters = 10.0;
-	const CLLocationAccuracy fiveMeters = 5.0;
 	
 	self.locationManager = [[CLLocationManager alloc] init];
 	self.locationManager.delegate = self;
 	self.locationManager.activityType = CLActivityTypeOther;
 	self.locationManager.distanceFilter = oneHundredMeters;
-	self.locationManager.desiredAccuracy = fiveMeters;
+	self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
 	
 	[self.locationManager startUpdatingLocation];
 }
@@ -105,6 +106,7 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 		if (!self.nearbyVenuesTask) {
 			self.nearbyVenuesTask = [[SLDoubleWideAPIClient sharedClient] venuesNearCoordinate:location.coordinate completion:^(NSArray *venues, NSError *error) {
 				dispatch_async( dispatch_get_main_queue(), ^{
+					self.activityIndicator.alpha = 0.0f;
 					self.venuesDataSource.nearbyVenues = venues;
 					[self.collectionView reloadData];
 				});
