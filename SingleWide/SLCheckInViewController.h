@@ -1,5 +1,5 @@
 //
-//  SLLocationViewController.h
+//  SLCheckInViewController.h
 //  SingleWide
 //
 //  Created by Mark Stultz on 2/11/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SLLocationViewController : UIViewController
+@interface SLCheckInViewController : UIViewController
 
 @end

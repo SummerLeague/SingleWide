@@ -22,7 +22,7 @@
 		D83DBD2A18AB1DF9004E182A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D83DBD0C18AB1DF9004E182A /* UIKit.framework */; };
 		D83DBD3218AB1DF9004E182A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = D83DBD3018AB1DF9004E182A /* InfoPlist.strings */; };
 		D83DBD3418AB1DF9004E182A /* SingleWideTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D83DBD3318AB1DF9004E182A /* SingleWideTests.m */; };
-		D83DBD3F18AB37EA004E182A /* SLLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83DBD3E18AB37EA004E182A /* SLLocationViewController.m */; };
+		D83DBD3F18AB37EA004E182A /* SLCheckInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D83DBD3E18AB37EA004E182A /* SLCheckInViewController.m */; };
 		D87978DA18AC79E60042FF70 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D87978D918AC79E60042FF70 /* MapKit.framework */; };
 		D87978DD18B037F30042FF70 /* SLSignInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978DC18B037F30042FF70 /* SLSignInViewController.m */; };
 		D87978E018B03B640042FF70 /* SLUserAuthenticator.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978DF18B03B640042FF70 /* SLUserAuthenticator.m */; };
@@ -30,7 +30,6 @@
 		D87978E718B03F250042FF70 /* SLDoubleWideAPIClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978E618B03F250042FF70 /* SLDoubleWideAPIClient.m */; };
 		D87978EB18B046FB0042FF70 /* SLAccountCreationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978EA18B046FB0042FF70 /* SLAccountCreationViewController.m */; };
 		D87978EE18B047960042FF70 /* SLAccountCreator.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978ED18B047960042FF70 /* SLAccountCreator.m */; };
-		D87978F518B05A440042FF70 /* SLCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978F418B05A440042FF70 /* SLCollectionViewCell.m */; };
 		D87978F818B05A8D0042FF70 /* SLVenuesDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978F718B05A8D0042FF70 /* SLVenuesDataSource.m */; };
 		D87978FC18B05D5D0042FF70 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978FB18B05D5D0042FF70 /* Venue.m */; };
 		D87978FF18B0602A0042FF70 /* Checkin.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978FE18B0602A0042FF70 /* Checkin.m */; };
@@ -69,8 +68,8 @@
 		D83DBD2F18AB1DF9004E182A /* SingleWideTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SingleWideTests-Info.plist"; sourceTree = "<group>"; };
 		D83DBD3118AB1DF9004E182A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		D83DBD3318AB1DF9004E182A /* SingleWideTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SingleWideTests.m; sourceTree = "<group>"; };
-		D83DBD3D18AB37EA004E182A /* SLLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLLocationViewController.h; sourceTree = "<group>"; };
-		D83DBD3E18AB37EA004E182A /* SLLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLLocationViewController.m; sourceTree = "<group>"; };
+		D83DBD3D18AB37EA004E182A /* SLCheckInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLCheckInViewController.h; sourceTree = "<group>"; };
+		D83DBD3E18AB37EA004E182A /* SLCheckInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLCheckInViewController.m; sourceTree = "<group>"; };
 		D87978D918AC79E60042FF70 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		D87978DB18B037F30042FF70 /* SLSignInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLSignInViewController.h; sourceTree = "<group>"; };
 		D87978DC18B037F30042FF70 /* SLSignInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLSignInViewController.m; sourceTree = "<group>"; };
@@ -84,8 +83,6 @@
 		D87978EA18B046FB0042FF70 /* SLAccountCreationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAccountCreationViewController.m; sourceTree = "<group>"; };
 		D87978EC18B047960042FF70 /* SLAccountCreator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLAccountCreator.h; sourceTree = "<group>"; };
 		D87978ED18B047960042FF70 /* SLAccountCreator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLAccountCreator.m; sourceTree = "<group>"; };
-		D87978F318B05A440042FF70 /* SLCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLCollectionViewCell.h; sourceTree = "<group>"; };
-		D87978F418B05A440042FF70 /* SLCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLCollectionViewCell.m; sourceTree = "<group>"; };
 		D87978F618B05A8D0042FF70 /* SLVenuesDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLVenuesDataSource.h; sourceTree = "<group>"; };
 		D87978F718B05A8D0042FF70 /* SLVenuesDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLVenuesDataSource.m; sourceTree = "<group>"; };
 		D87978FA18B05D5D0042FF70 /* Venue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Venue.h; sourceTree = "<group>"; };
@@ -158,13 +155,12 @@
 		D83DBD0E18AB1DF9004E182A /* SingleWide */ = {
 			isa = PBXGroup;
 			children = (
-				D87978F918B05D520042FF70 /* Model */,
 				D87978E118B03D570042FF70 /* Classes */,
 				D83DBD4018AB37F3004E182A /* Controllers */,
-				D87978E818B041300042FF70 /* ServerAPI */,
-				D87978F218B05A330042FF70 /* Views */,
-				D83DBD2018AB1DF9004E182A /* Images.xcassets */,
+				D87978F918B05D520042FF70 /* Model */,
+				D8B1704018B1EEB500BFC8CE /* Support */,
 				D83DBD0F18AB1DF9004E182A /* Supporting Files */,
+				D87978F218B05A330042FF70 /* Views */,
 			);
 			path = SingleWide;
 			sourceTree = "<group>";
@@ -172,9 +168,10 @@
 		D83DBD0F18AB1DF9004E182A /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D83DBD1018AB1DF9004E182A /* SingleWide-Info.plist */,
+				D83DBD2018AB1DF9004E182A /* Images.xcassets */,
 				D83DBD1118AB1DF9004E182A /* InfoPlist.strings */,
 				D83DBD1418AB1DF9004E182A /* main.m */,
+				D83DBD1018AB1DF9004E182A /* SingleWide-Info.plist */,
 				D83DBD1618AB1DF9004E182A /* SingleWide-Prefix.pch */,
 			);
 			name = "Supporting Files";
@@ -204,8 +201,8 @@
 				D83DBD1A18AB1DF9004E182A /* Main.storyboard */,
 				D87978E918B046FB0042FF70 /* SLAccountCreationViewController.h */,
 				D87978EA18B046FB0042FF70 /* SLAccountCreationViewController.m */,
-				D83DBD3D18AB37EA004E182A /* SLLocationViewController.h */,
-				D83DBD3E18AB37EA004E182A /* SLLocationViewController.m */,
+				D83DBD3D18AB37EA004E182A /* SLCheckInViewController.h */,
+				D83DBD3E18AB37EA004E182A /* SLCheckInViewController.m */,
 				D87978DB18B037F30042FF70 /* SLSignInViewController.h */,
 				D87978DC18B037F30042FF70 /* SLSignInViewController.m */,
 				D83DBD1D18AB1DF9004E182A /* SLViewController.h */,
@@ -234,8 +231,6 @@
 				D87978DF18B03B640042FF70 /* SLUserAuthenticator.m */,
 				D87978E218B03D640042FF70 /* SLCredentialStore.h */,
 				D87978E318B03D640042FF70 /* SLCredentialStore.m */,
-				D87978E518B03F250042FF70 /* SLDoubleWideAPIClient.h */,
-				D87978E618B03F250042FF70 /* SLDoubleWideAPIClient.m */,
 			);
 			name = ServerAPI;
 			sourceTree = "<group>";
@@ -243,8 +238,6 @@
 		D87978F218B05A330042FF70 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D87978F318B05A440042FF70 /* SLCollectionViewCell.h */,
-				D87978F418B05A440042FF70 /* SLCollectionViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -260,6 +253,16 @@
 				D87978FB18B05D5D0042FF70 /* Venue.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		D8B1704018B1EEB500BFC8CE /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				D87978E518B03F250042FF70 /* SLDoubleWideAPIClient.h */,
+				D87978E618B03F250042FF70 /* SLDoubleWideAPIClient.m */,
+				D87978E818B041300042FF70 /* ServerAPI */,
+			);
+			name = Support;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -396,8 +399,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D87978FC18B05D5D0042FF70 /* Venue.m in Sources */,
-				D83DBD3F18AB37EA004E182A /* SLLocationViewController.m in Sources */,
-				D87978F518B05A440042FF70 /* SLCollectionViewCell.m in Sources */,
+				D83DBD3F18AB37EA004E182A /* SLCheckInViewController.m in Sources */,
 				D87978E418B03D640042FF70 /* SLCredentialStore.m in Sources */,
 				D87978F818B05A8D0042FF70 /* SLVenuesDataSource.m in Sources */,
 				D879790218B060520042FF70 /* User.m in Sources */,

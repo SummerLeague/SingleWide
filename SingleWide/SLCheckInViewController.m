@@ -1,5 +1,5 @@
 //
-//  SLLocationViewController.m
+//  SLCheckInViewController.m
 //  SingleWide
 //
 //  Created by Mark Stultz on 2/11/14.
@@ -9,29 +9,28 @@
 @import CoreLocation;
 @import MapKit;
 
-#import "SLLocationViewController.h"
+#import "SLCheckInViewController.h"
 #import "SLVenuesDataSource.h"
 #import "SLDoubleWideAPIClient.h"
-#import "SLCollectionViewCell.h"
 #import "Venue.h"
 
 static void *NearbyVenuesContext = &NearbyVenuesContext;
 
-@interface SLLocationViewController () <SLVenuesDataSourceDelegate, CLLocationManagerDelegate>
+@interface SLCheckInViewController () <SLVenuesDataSourceDelegate, CLLocationManagerDelegate>
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
-@property (nonatomic, weak) IBOutlet UICollectionView *collectionView;
+@property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) SLVenuesDataSource *venuesDataSource;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) MKPointAnnotation *annotation;
-@property (nonatomic, strong) NSURLSessionDataTask *nearbyVenuesTask;
 
 - (void)setupLocationManager;
+- (void)setVenues:(NSArray *)venues;
 
 @end
 
-@implementation SLLocationViewController
+@implementation SLCheckInViewController
 
 - (void)viewDidLoad
 {
@@ -39,7 +38,7 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 	
 	[self setupLocationManager];
 	
-	self.venuesDataSource = [[SLVenuesDataSource alloc] initWithCollectionView:self.collectionView];
+	self.venuesDataSource = [[SLVenuesDataSource alloc] initWithTableView:self.tableView];
 	self.venuesDataSource.delegate = self;
 	self.venuesDataSource.reusableCellIdentifier = @"cell";
 	
@@ -52,8 +51,6 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
-
-	[self.navigationController setNavigationBarHidden:YES animated:animated];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -65,15 +62,19 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 
 - (void)setupLocationManager
 {
-	const CLLocationDistance oneHundredMeters = 10.0;
-	
 	self.locationManager = [[CLLocationManager alloc] init];
 	self.locationManager.delegate = self;
 	self.locationManager.activityType = CLActivityTypeOther;
-	self.locationManager.distanceFilter = oneHundredMeters;
 	self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
 	
 	[self.locationManager startUpdatingLocation];
+}
+
+- (void)setVenues:(NSArray *)venues
+{
+	self.activityIndicator.alpha = 0.0f;
+	self.venuesDataSource.nearbyVenues = venues;
+	[self.tableView reloadData];
 }
 
 #pragma mark SLVenuesDataSourceDelegate
@@ -81,39 +82,35 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 - (void)configureCell:(id)cell withObject:(id)object
 {
 	Venue *venue = object;
-	SLCollectionViewCell *collectionViewCell = cell;
-	collectionViewCell.label.text = venue.name;
+	UITableViewCell *tableViewCell = cell;
+	tableViewCell.textLabel.text = venue.name;
 }
 
 #pragma mark CLLocationManagerDelegate
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-	for (CLLocation *location in locations) {
-		MKCoordinateRegion region = MKCoordinateRegionMake(location.coordinate, MKCoordinateSpanMake(0.0035, 0.0035));
-		[self.mapView setCenterCoordinate:location.coordinate animated:YES];
-		[self.mapView setRegion:region animated:YES];
-		
-		self.annotation.coordinate = location.coordinate;
-		self.annotation.title = @"Current Location";
-		self.annotation.subtitle = @"Look behind you.";
-		[self.mapView addAnnotation:self.annotation];
-		
-		NSLog(@"location: %@", location);
-		NSLog(@"lat: %lf", location.coordinate.latitude);
-		NSLog(@"long: %lf", location.coordinate.longitude);
-		
-		if (!self.nearbyVenuesTask) {
-			self.nearbyVenuesTask = [[SLDoubleWideAPIClient sharedClient] venuesNearCoordinate:location.coordinate completion:^(NSArray *venues, NSError *error) {
-				dispatch_async( dispatch_get_main_queue(), ^{
-					self.activityIndicator.alpha = 0.0f;
-					self.venuesDataSource.nearbyVenues = venues;
-					[self.collectionView reloadData];
-				});
-				self.nearbyVenuesTask = nil;
-			}];
-		}
-	}
+	CLLocation *location = locations.lastObject;
+	MKCoordinateRegion region = MKCoordinateRegionMake(location.coordinate, MKCoordinateSpanMake(0.0035, 0.0035));
+	[self.mapView setCenterCoordinate:location.coordinate animated:YES];
+	[self.mapView setRegion:region animated:YES];
+	
+	self.annotation.coordinate = location.coordinate;
+	self.annotation.title = @"Current Location";
+	self.annotation.subtitle = @"Look behind you.";
+	[self.mapView selectAnnotation:self.annotation animated:YES];
+	[self.mapView addAnnotation:self.annotation];
+	
+	NSLog(@"location: %@", location);
+	NSLog(@"lat: %lf", location.coordinate.latitude);
+	NSLog(@"long: %lf", location.coordinate.longitude);
+	
+	[[SLDoubleWideAPIClient sharedClient] venuesNearCoordinate:location.coordinate completion:^(NSArray *venues, NSError *error) {
+		dispatch_async( dispatch_get_main_queue(), ^{
+			[self setVenues:venues];
+		});
+	}];
+	[self.locationManager stopUpdatingLocation];
 }
 
 @end

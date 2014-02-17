@@ -16,7 +16,7 @@
 @property (nonatomic, weak) id<SLVenuesDataSourceDelegate> delegate;
 @property (nonatomic, strong) NSArray *nearbyVenues;
 
-- (id)initWithCollectionView:(UICollectionView *)collectionView;
+- (id)initWithTableView:(UITableView *)tableView;
 
 @end
 
