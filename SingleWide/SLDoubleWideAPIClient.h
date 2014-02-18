@@ -21,8 +21,10 @@
 - (NSURLSessionDataTask *)venuesWithCompletion:(void (^)(NSArray *venues, NSError *error))completion;
 - (NSURLSessionDataTask *)venuesNearCoordinate:(CLLocationCoordinate2D)coordinate completion:(void (^)(NSArray *venues, NSError *error))completion;
 
-- (NSURLSessionDataTask *)checkIisWithUserId:(NSString *)userId completion:(void (^)(NSArray *checkIns, NSError *error))completion;
+- (NSURLSessionDataTask *)checkInsWithUserId:(NSString *)userId completion:(void (^)(NSArray *checkIns, NSError *error))completion;
 - (NSURLSessionDataTask *)checkInsWithVenueId:(NSString *)venueId completion:(void (^)(NSArray *checkIns, NSError *error))completion;
 - (NSURLSessionDataTask *)checkInWithCoordinate:(CLLocationCoordinate2D)coordinate foursquareId:(NSString *)foursquareId completion:(void (^)(CheckIn *checkIn, NSError *error))completion;
+
+- (NSManagedObjectContext *)managedObjectContext;
 
 @end

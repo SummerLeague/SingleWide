@@ -34,7 +34,7 @@
 		D87978FC18B05D5D0042FF70 /* Venue.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978FB18B05D5D0042FF70 /* Venue.m */; };
 		D87978FF18B0602A0042FF70 /* CheckIn.m in Sources */ = {isa = PBXBuildFile; fileRef = D87978FE18B0602A0042FF70 /* CheckIn.m */; };
 		D879790218B060520042FF70 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = D879790118B060520042FF70 /* User.m */; };
-		D8B1704318B306E400BFC8CE /* SLCheckInIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B1704218B306E400BFC8CE /* SLCheckInIndexViewController.m */; };
+		D8B1704318B306E400BFC8CE /* SLVenueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B1704218B306E400BFC8CE /* SLVenueViewController.m */; };
 		D8D6820418B30E0D00D2CF1E /* SingleWide.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D8D6820218B30E0D00D2CF1E /* SingleWide.xcdatamodeld */; };
 		D8D6820718B30ECE00D2CF1E /* SLPersistenceStack.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D6820618B30ECE00D2CF1E /* SLPersistenceStack.m */; };
 /* End PBXBuildFile section */
@@ -94,8 +94,8 @@
 		D87978FE18B0602A0042FF70 /* CheckIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CheckIn.m; sourceTree = "<group>"; };
 		D879790018B060520042FF70 /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = User.h; sourceTree = "<group>"; };
 		D879790118B060520042FF70 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
-		D8B1704118B306E400BFC8CE /* SLCheckInIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLCheckInIndexViewController.h; sourceTree = "<group>"; };
-		D8B1704218B306E400BFC8CE /* SLCheckInIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLCheckInIndexViewController.m; sourceTree = "<group>"; };
+		D8B1704118B306E400BFC8CE /* SLVenueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLVenueViewController.h; sourceTree = "<group>"; };
+		D8B1704218B306E400BFC8CE /* SLVenueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLVenueViewController.m; sourceTree = "<group>"; };
 		D8D6820318B30E0D00D2CF1E /* SingleWide.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SingleWide.xcdatamodel; sourceTree = "<group>"; };
 		D8D6820518B30ECE00D2CF1E /* SLPersistenceStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLPersistenceStack.h; sourceTree = "<group>"; };
 		D8D6820618B30ECE00D2CF1E /* SLPersistenceStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLPersistenceStack.m; sourceTree = "<group>"; };
@@ -209,8 +209,8 @@
 				D83DBD1A18AB1DF9004E182A /* Main.storyboard */,
 				D87978E918B046FB0042FF70 /* SLAccountCreationViewController.h */,
 				D87978EA18B046FB0042FF70 /* SLAccountCreationViewController.m */,
-				D8B1704118B306E400BFC8CE /* SLCheckInIndexViewController.h */,
-				D8B1704218B306E400BFC8CE /* SLCheckInIndexViewController.m */,
+				D8B1704118B306E400BFC8CE /* SLVenueViewController.h */,
+				D8B1704218B306E400BFC8CE /* SLVenueViewController.m */,
 				D83DBD3D18AB37EA004E182A /* SLCheckInViewController.h */,
 				D83DBD3E18AB37EA004E182A /* SLCheckInViewController.m */,
 				D8D6820518B30ECE00D2CF1E /* SLPersistenceStack.h */,
@@ -426,7 +426,7 @@
 				D83DBD1F18AB1DF9004E182A /* SLViewController.m in Sources */,
 				D87978E718B03F250042FF70 /* SLDoubleWideAPIClient.m in Sources */,
 				D83DBD1918AB1DF9004E182A /* SLAppDelegate.m in Sources */,
-				D8B1704318B306E400BFC8CE /* SLCheckInIndexViewController.m in Sources */,
+				D8B1704318B306E400BFC8CE /* SLVenueViewController.m in Sources */,
 				D87978FF18B0602A0042FF70 /* CheckIn.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

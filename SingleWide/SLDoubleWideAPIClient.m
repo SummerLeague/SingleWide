@@ -107,24 +107,13 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 				Venue *venue = [Venue venueWithFoursquareId:foursquareId inManagedObjectContext:self.persistenceStack.managedObjectContext];
 				if (venue) {
 					venue.name = venueDict[ @"name" ];
+					venue.latitude = venueDict[ @"location" ][ @"lat" ];
+					venue.longitude = venueDict[ @"location" ][ @"lng" ];
 					[venues addObject:venue];
-					
-					/*
-					 "location": {
-					 "address": "1836 W Davis St",
-					 "lat": 32.74920395813301,
-					 "lng": -96.84974424775343,
-					 "distance": 23,
-					 "postalCode": "75208",
-					 "cc": "US",
-					 "city": "Dallas",
-					 "state": "TX",
-					 "country": "United States"
-					 },
-					 */
 				}
-				
 			}
+			
+			[self.persistenceStack save];
 			
 			if (completion) {
 				completion(venues, nil);
@@ -158,7 +147,6 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 			for (NSDictionary *checkInDict in responseObject) {
 				User *user = [self userFromDictionary:checkInDict[ @"creator" ]];
 				Venue *venue = [self venueFromDictionary:checkInDict[ @"venue" ]];
-				
 				
 				// TODO-MAS: This might be an array
 				NSDictionary *locationDict = checkInDict[ @"location" ];
@@ -315,6 +303,11 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 	}
 	
 	return venue;
+}
+
+- (NSManagedObjectContext *)managedObjectContext;
+{
+	return self.persistenceStack.managedObjectContext;
 }
 
 @end

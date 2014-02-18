@@ -15,6 +15,8 @@
 @property (nonatomic, copy) NSString *doubleWideId;
 @property (nonatomic, copy) NSString *foursquareId;
 @property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSNumber *latitude;
+@property (nonatomic, copy) NSNumber *longitude;
 @property (nonatomic, copy) NSSet *checkIns;
 
 + (id)venueWithDoubleWideId:(NSString *)doubleWideId inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;

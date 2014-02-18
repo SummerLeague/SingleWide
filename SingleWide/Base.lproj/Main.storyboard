@@ -214,34 +214,22 @@
                             <constraint firstAttribute="trailing" secondItem="IIx-hI-6aC" secondAttribute="trailing" id="iOd-cE-zeS"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Check In" id="Qnd-VP-Q29">
-                        <barButtonItem key="leftBarButtonItem" title="Checkins" id="EK0-p8-kT2">
-                            <connections>
-                                <action selector="resetLocation:" destination="arR-cQ-8Xf" id="zZW-Sx-FrH"/>
-                                <segue destination="L5s-OW-Dz6" kind="modal" identifier="checkinsSegue" id="HaB-XT-TCv"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Reset" id="b6H-4y-jit">
-                            <connections>
-                                <action selector="resetLocation:" destination="arR-cQ-8Xf" id="S20-I0-VOK"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Check In" id="Qnd-VP-Q29"/>
                     <connections>
                         <outlet property="activityIndicator" destination="LrD-w1-Nr9" id="10c-gJ-eBp"/>
                         <outlet property="mapView" destination="IIx-hI-6aC" id="jAS-Mh-nYU"/>
-                        <outlet property="resetButton" destination="b6H-4y-jit" id="u0F-5C-svr"/>
                         <outlet property="tableView" destination="fCZ-qQ-G4A" id="Etv-1o-kFg"/>
+                        <segue destination="L5s-OW-Dz6" kind="push" identifier="checkInSegue" id="aJ6-DK-8GF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yLl-y6-Rwu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2821" y="-712"/>
         </scene>
-        <!--Check In Index View Controller-->
+        <!--Venue View Controller-->
         <scene sceneID="WSf-XY-aGU">
             <objects>
-                <viewController storyboardIdentifier="CheckInIndexViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="L5s-OW-Dz6" customClass="SLCheckInIndexViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VenueViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="L5s-OW-Dz6" customClass="SLVenueViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Ar1-2Z-q9B"/>
                         <viewControllerLayoutGuide type="bottom" id="SBt-VK-cte"/>
@@ -250,26 +238,48 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fus-Xz-cW7">
-                                <rect key="frame" x="-1" y="2" width="320" height="568"/>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" zoomEnabled="NO" scrollEnabled="NO" rotateEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JEZ-h4-6Mj">
+                                <rect key="frame" x="0.0" y="64" width="320" height="200"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="200" id="KvT-Rg-1kM"/>
+                                    <constraint firstAttribute="height" constant="200" id="tAl-aH-cyP"/>
+                                </constraints>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d1S-S7-uSd">
+                                <rect key="frame" x="130" y="272" width="61" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Check In">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="checkIn:" destination="L5s-OW-Dz6" eventType="touchUpInside" id="8Tq-gP-Iwz"/>
+                                </connections>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="7wN-NB-pRE">
+                                <rect key="frame" x="0.0" y="310" width="320" height="258"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" id="fE7-2K-pba">
-                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fE7-2K-pba" id="eMB-Qf-9UN">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="JEZ-h4-6Mj" firstAttribute="leading" secondItem="nbu-nD-wYV" secondAttribute="leading" id="2Um-PV-Ddj"/>
+                            <constraint firstItem="7wN-NB-pRE" firstAttribute="leading" secondItem="nbu-nD-wYV" secondAttribute="leading" id="5TY-SR-VFZ"/>
+                            <constraint firstAttribute="trailing" secondItem="7wN-NB-pRE" secondAttribute="trailing" id="89j-BU-qTd"/>
+                            <constraint firstAttribute="trailing" secondItem="JEZ-h4-6Mj" secondAttribute="trailing" id="JdZ-5M-S2Z"/>
+                            <constraint firstAttribute="bottom" secondItem="7wN-NB-pRE" secondAttribute="bottom" id="biw-RG-168"/>
+                            <constraint firstItem="JEZ-h4-6Mj" firstAttribute="top" secondItem="Ar1-2Z-q9B" secondAttribute="bottom" id="kSL-Kg-HSp"/>
+                            <constraint firstItem="7wN-NB-pRE" firstAttribute="top" secondItem="d1S-S7-uSd" secondAttribute="bottom" constant="8" id="kjk-w1-OVt"/>
+                            <constraint firstItem="d1S-S7-uSd" firstAttribute="top" secondItem="JEZ-h4-6Mj" secondAttribute="bottom" constant="8" id="njU-ZA-gM6"/>
+                            <constraint firstAttribute="centerX" secondItem="d1S-S7-uSd" secondAttribute="centerX" id="o8I-sC-bGv"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="jy0-4s-BkI"/>
                     <connections>
-                        <outlet property="tableView" destination="fus-Xz-cW7" id="tDl-R1-eQM"/>
+                        <outlet property="checkInButton" destination="d1S-S7-uSd" id="rAb-Re-Auf"/>
+                        <outlet property="mapView" destination="JEZ-h4-6Mj" id="dLl-Hv-Tas"/>
+                        <outlet property="tableView" destination="7wN-NB-pRE" id="75V-EA-3cx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bcq-DP-xYS" userLabel="First Responder" sceneMemberID="firstResponder"/>

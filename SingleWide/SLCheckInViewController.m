@@ -10,6 +10,7 @@
 @import MapKit;
 
 #import "SLCheckInViewController.h"
+#import "SLVenueViewController.h"
 #import "SLTableViewDataSource.h"
 #import "SLDoubleWideAPIClient.h"
 #import "Venue.h"
@@ -18,17 +19,13 @@
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
-@property (nonatomic, weak) IBOutlet UIBarButtonItem *resetButton;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (nonatomic, strong) SLTableViewDataSource *dataSource;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) MKPointAnnotation *annotation;
 @property (nonatomic, strong) Venue *selectedVenue;
 
-- (IBAction)resetLocation:(id)sender;
-
 - (void)setupLocationManager;
-- (void)enableResetButton;
 - (void)setVenues:(NSArray *)venues;
 
 @end
@@ -53,6 +50,13 @@
 	self.activityIndicator.alpha = 1.0f;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
+	
+	[self.tableView reloadRowsAtIndexPaths:[self.tableView indexPathsForVisibleRows] withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
@@ -60,12 +64,23 @@
 	[self.locationManager stopUpdatingLocation];
 }
 
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+	if ([segue.identifier isEqualToString:@"checkInSegue"]) {
+		SLVenueViewController *viewController = segue.destinationViewController;
+		Venue *venue = [self.dataSource.objects objectAtIndex:self.tableView.indexPathForSelectedRow.row];
+		viewController.venue = venue;
+	}
+	else {
+		return [super prepareForSegue:segue sender:sender];
+	}
+}
+
 - (IBAction)resetLocation:(id)sender
 {
 	if (self.selectedVenue) {
 		self.selectedVenue = nil;
 		
-		self.resetButton.title = @"";
 		self.annotation.title = @"Current Location";
 		self.annotation.subtitle = @"Look behind you.";
 		
@@ -90,8 +105,6 @@
 				
 				self.annotation.title = _selectedVenue.name;
 				self.annotation.subtitle = @"";
-				
-				[self enableResetButton];
 			}];
 		}
 	}
@@ -105,11 +118,6 @@
 	self.locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters;
 	
 	[self.locationManager startUpdatingLocation];
-}
-
-- (void)enableResetButton
-{
-	self.resetButton.title = @"Reset";
 }
 
 - (void)setVenues:(NSArray *)venues
@@ -141,7 +149,7 @@
 	self.annotation.coordinate = location.coordinate;
 	[self.mapView addAnnotation:self.annotation];
 	[self.mapView selectAnnotation:self.annotation animated:YES];
-
+	
 	[[SLDoubleWideAPIClient sharedClient] venuesNearCoordinate:location.coordinate completion:^(NSArray *venues, NSError *error) {
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[self setVenues:venues];
@@ -155,11 +163,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-	if (!self.selectedVenue) {
-		self.selectedVenue = [self.dataSource.objects objectAtIndex:indexPath.row];
-	}
-	
-	[self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationAutomatic];
+	[self performSegueWithIdentifier:@"checkInSegue" sender:self];
 }
 
 @end

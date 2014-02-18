@@ -19,6 +19,8 @@
 @dynamic doubleWideId;
 @dynamic foursquareId;
 @dynamic name;
+@dynamic latitude;
+@dynamic longitude;
 @dynamic checkIns;
 
 + (id)venueWithDoubleWideId:(NSString *)doubleWideId inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
