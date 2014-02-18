@@ -8,6 +8,10 @@
 
 #import "User.h"
 
+@interface User () <NSCopying>
+
+@end
+
 @implementation User
 
 - (id)initWithDoublewideId:(NSString *)doubleWideId nickname:(NSString *)nickname
@@ -19,6 +23,18 @@
 	}
 	
 	return self;
+}
+
+- (id)copyWithZone:(NSZone *)zone
+{
+	User *user = [User allocWithZone:zone];
+	if( user )
+	{
+		user.doubleWideId = self.doubleWideId;
+		user.nickname = self.nickname;
+	}
+	
+	return user;
 }
 
 @end

@@ -12,9 +12,11 @@
 
 @interface Checkin : NSObject
 
+@property (nonatomic, copy) NSString *doubleWideId;
+@property (nonatomic, copy) NSString *creationDateString;
 @property (nonatomic, copy) User *user;
 @property (nonatomic, copy) Venue *venue;
 
-- (id)initWithUser:(User *)user venue:(Venue *)venue;
+- (id)initWithId:(NSString *)checkinId user:(User *)user venue:(Venue *)venue creationDateString:(NSString *)creationDateString;
 
 @end

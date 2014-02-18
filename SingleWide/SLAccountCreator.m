@@ -35,7 +35,7 @@
 		@"password": password ?: @""
 	};
 	
-	NSURLSessionDataTask *task = [[SLDoubleWideAPIClient sharedClient] POST:@"/users" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+	NSURLSessionDataTask *task = [[SLDoubleWideAPIClient sharedClient] POST:@"/api/users" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
 		NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
 		if (response.statusCode == 200) {
 			[_credentialStore setAuthToken:responseObject[@"token"]];

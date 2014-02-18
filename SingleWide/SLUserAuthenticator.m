@@ -35,7 +35,7 @@
 		@"password": password ?: @""
 	};
 	
-	NSURLSessionDataTask *task = [[SLDoubleWideAPIClient sharedClient] POST:@"/login" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
+	NSURLSessionDataTask *task = [[SLDoubleWideAPIClient sharedClient] POST:@"/api/login" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
 		NSHTTPURLResponse *response = (NSHTTPURLResponse *)task.response;
 		if (response.statusCode == 200) {
 			NSDictionary *user = responseObject[ @"user" ];
