@@ -8,11 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-@interface User : NSObject
+@import CoreData;
+
+@interface User : NSManagedObject
 
 @property (nonatomic, copy) NSString *doubleWideId;
 @property (nonatomic, copy) NSString *nickname;
+@property (nonatomic, copy) NSSet *checkIns;
 
-- (id)initWithDoublewideId:(NSString *)doubleWideId nickname:(NSString *)nickname;
++ (id)userWithDoubleWideId:(NSString *)doubleWideId inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
+
++ (NSString *)entityName;
 
 @end

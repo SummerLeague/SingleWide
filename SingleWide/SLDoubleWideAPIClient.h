@@ -10,7 +10,7 @@
 
 @import CoreLocation;
 
-@class Checkin;
+@class CheckIn;
 
 @interface SLDoubleWideAPIClient : AFHTTPSessionManager
 
@@ -21,8 +21,8 @@
 - (NSURLSessionDataTask *)venuesWithCompletion:(void (^)(NSArray *venues, NSError *error))completion;
 - (NSURLSessionDataTask *)venuesNearCoordinate:(CLLocationCoordinate2D)coordinate completion:(void (^)(NSArray *venues, NSError *error))completion;
 
-- (NSURLSessionDataTask *)checkinsWithUserId:(NSString *)userId completion:(void (^)(NSArray *checkins, NSError *error))completion;
-- (NSURLSessionDataTask *)checkinsWithVenueId:(NSString *)venueId completion:(void (^)(NSArray *checkins, NSError *error))completion;
-- (NSURLSessionDataTask *)checkinWithCoordinate:(CLLocationCoordinate2D)coordinate foursquareId:(NSString *)foursquareId completion:(void (^)(Checkin *checkin, NSError *error))completion;
+- (NSURLSessionDataTask *)checkIisWithUserId:(NSString *)userId completion:(void (^)(NSArray *checkIns, NSError *error))completion;
+- (NSURLSessionDataTask *)checkInsWithVenueId:(NSString *)venueId completion:(void (^)(NSArray *checkIns, NSError *error))completion;
+- (NSURLSessionDataTask *)checkInWithCoordinate:(CLLocationCoordinate2D)coordinate foursquareId:(NSString *)foursquareId completion:(void (^)(CheckIn *checkIn, NSError *error))completion;
 
 @end

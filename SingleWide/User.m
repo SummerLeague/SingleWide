@@ -8,33 +8,40 @@
 
 #import "User.h"
 
-@interface User () <NSCopying>
+@interface User ()
+
++ (instancetype)findUserWithPredicate:(NSPredicate *)predicate inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
 
 @end
 
 @implementation User
 
-- (id)initWithDoublewideId:(NSString *)doubleWideId nickname:(NSString *)nickname
-{
-	self = [super init];
-	if (self) {
-		self.doubleWideId = doubleWideId;
-		self.nickname = nickname;
-	}
-	
-	return self;
-}
+@dynamic doubleWideId;
+@dynamic nickname;
+@dynamic checkIns;
 
-- (id)copyWithZone:(NSZone *)zone
++ (id)userWithDoubleWideId:(NSString *)doubleWideId inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
 {
-	User *user = [User allocWithZone:zone];
-	if( user )
-	{
-		user.doubleWideId = self.doubleWideId;
-		user.nickname = self.nickname;
+	User *user = [self findUserWithPredicate:[NSPredicate predicateWithFormat:@"doubleWideId = %@", doubleWideId] inManagedObjectContext:managedObjectContext];
+	if (!user) {
+		user = [NSEntityDescription insertNewObjectForEntityForName:self.entityName inManagedObjectContext:managedObjectContext];
+		user.doubleWideId = doubleWideId;
 	}
 	
 	return user;
+}
+
++ (NSString *)entityName
+{
+	return @"User";
+}
+
++ (instancetype)findUserWithPredicate:(NSPredicate *)predicate inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
+{
+	NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:self.entityName];
+	request.predicate = predicate;
+	NSArray *objects = [managedObjectContext executeFetchRequest:request error:nil];
+	return objects.lastObject;
 }
 
 @end

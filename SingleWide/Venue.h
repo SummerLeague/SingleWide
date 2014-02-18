@@ -8,12 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Venue : NSObject
+@import CoreData;
 
-@property (nonatomic, copy) NSString *venueId;
+@interface Venue : NSManagedObject
+
+@property (nonatomic, copy) NSString *doubleWideId;
 @property (nonatomic, copy) NSString *foursquareId;
 @property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSSet *checkIns;
 
-- (id)initWithVenueId:(NSString *)venueId foursquareId:foursquareId;
++ (id)venueWithDoubleWideId:(NSString *)doubleWideId inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
++ (id)venueWithFoursquareId:(NSString *)foursquareId inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
+
++ (NSString *)entityName;
 
 @end

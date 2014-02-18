@@ -10,19 +10,17 @@
 @import MapKit;
 
 #import "SLCheckInViewController.h"
-#import "SLVenuesDataSource.h"
+#import "SLTableViewDataSource.h"
 #import "SLDoubleWideAPIClient.h"
 #import "Venue.h"
 
-static void *NearbyVenuesContext = &NearbyVenuesContext;
-
-@interface SLCheckInViewController () <SLVenuesDataSourceDelegate, CLLocationManagerDelegate, UITableViewDelegate>
+@interface SLCheckInViewController () <SLTableViewDataSourceDelegate, CLLocationManagerDelegate, UITableViewDelegate>
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UIBarButtonItem *resetButton;
 @property (nonatomic, weak) IBOutlet UIActivityIndicatorView *activityIndicator;
-@property (nonatomic, strong) SLVenuesDataSource *venuesDataSource;
+@property (nonatomic, strong) SLTableViewDataSource *dataSource;
 @property (nonatomic, strong) CLLocationManager *locationManager;
 @property (nonatomic, strong) MKPointAnnotation *annotation;
 @property (nonatomic, strong) Venue *selectedVenue;
@@ -45,16 +43,14 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 	
 	self.tableView.delegate = self;
 	
-	self.venuesDataSource = [[SLVenuesDataSource alloc] initWithTableView:self.tableView];
-	self.venuesDataSource.delegate = self;
-	self.venuesDataSource.reusableCellIdentifier = @"cell";
+	self.dataSource = [[SLTableViewDataSource alloc] initWithTableView:self.tableView];
+	self.dataSource.delegate = self;
+	self.dataSource.reusableCellIdentifier = @"cell";
 	
 	self.annotation = [[MKPointAnnotation alloc] init];
 	[self resetLocation:self];
 	
 	self.activityIndicator.alpha = 1.0f;
-	
-	[self addObserver:self forKeyPath:@"nearbyVenues" options:NSKeyValueObservingOptionNew context:NearbyVenuesContext];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -83,9 +79,13 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 		_selectedVenue = selectedVenue;
 		
 		if (_selectedVenue) {
-			[[SLDoubleWideAPIClient sharedClient] checkinWithCoordinate:self.annotation.coordinate foursquareId:_selectedVenue.foursquareId completion:^(Checkin *checkin, NSError *error) {
+			[[SLDoubleWideAPIClient sharedClient] checkInWithCoordinate:self.annotation.coordinate foursquareId:_selectedVenue.foursquareId completion:^(CheckIn *checkIn, NSError *error) {
 				if (error) {
 					NSLog(@"Error: %@", error);
+				}
+				
+				if (checkIn) {
+					NSLog(@"%@", checkIn);
 				}
 				
 				self.annotation.title = _selectedVenue.name;
@@ -115,11 +115,11 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 - (void)setVenues:(NSArray *)venues
 {
 	self.activityIndicator.alpha = 0.0f;
-	self.venuesDataSource.nearbyVenues = venues;
+	self.dataSource.objects = venues;
 	[self.tableView reloadData];
 }
 
-#pragma mark SLVenuesDataSourceDelegate
+#pragma mark SLTableViewDataSourceDelegate
 
 - (void)configureCell:(id)cell withObject:(id)object
 {
@@ -156,7 +156,7 @@ static void *NearbyVenuesContext = &NearbyVenuesContext;
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	if (!self.selectedVenue) {
-		self.selectedVenue = [self.venuesDataSource.nearbyVenues objectAtIndex:indexPath.row];
+		self.selectedVenue = [self.dataSource.objects objectAtIndex:indexPath.row];
 	}
 	
 	[self.tableView reloadRowsAtIndexPaths:self.tableView.indexPathsForVisibleRows withRowAnimation:UITableViewRowAnimationAutomatic];

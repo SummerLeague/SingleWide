@@ -1,5 +1,5 @@
 //
-//  SLVenuesDataSource.h
+//  SLTableViewDataSource.h
 //  SingleWide
 //
 //  Created by Mark Stultz on 2/15/14.
@@ -8,19 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol SLVenuesDataSourceDelegate;
+@protocol SLTableViewDataSourceDelegate;
 
-@interface SLVenuesDataSource : NSObject
+@interface SLTableViewDataSource : NSObject
 
 @property (nonatomic, copy) NSString *reusableCellIdentifier;
-@property (nonatomic, weak) id<SLVenuesDataSourceDelegate> delegate;
-@property (nonatomic, strong) NSArray *nearbyVenues;
+@property (nonatomic, weak) id<SLTableViewDataSourceDelegate> delegate;
+@property (nonatomic, strong) NSArray *objects;
 
 - (id)initWithTableView:(UITableView *)tableView;
 
 @end
 
-@protocol SLVenuesDataSourceDelegate <NSObject>
+@protocol SLTableViewDataSourceDelegate <NSObject>
 @required
 - (void)configureCell:(id)cell withObject:(id)object;
 @end

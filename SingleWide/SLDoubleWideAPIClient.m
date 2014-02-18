@@ -7,6 +7,7 @@
 //
 
 #import "SLDoubleWideAPIClient.h"
+#import "SLPersistenceStack.h"
 #import "SLCredentialStore.h"
 #import "Checkin.h"
 #import "User.h"
@@ -18,8 +19,13 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 
 @interface SLDoubleWideAPIClient ()
 
+@property (nonatomic, strong) SLPersistenceStack *persistenceStack;
+
 - (void)setAuthTokenHeader;
 - (void)tokenChanged:(NSNotification *)notification;
+
+- (User *)userFromDictionary:(NSDictionary *)dictionary;
+- (Venue *)venueFromDictionary:(NSDictionary *)dictionary;
 
 @end
 
@@ -44,6 +50,10 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 		self.responseSerializer = [AFJSONResponseSerializer serializer];
 		[self setAuthTokenHeader];
 		
+		NSURL *storeURL = [SLPersistenceStack defaultStoreURL];
+		NSURL *modelURL = [SLPersistenceStack defaultModelURL];
+		self.persistenceStack = [[SLPersistenceStack alloc] initWithStoreURL:storeURL modelURL:modelURL];
+		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tokenChanged:) name:@"token-changed" object:nil];
 	}
 	
@@ -55,10 +65,8 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 	NSURLSessionDataTask *task = [[SLDoubleWideAPIClient sharedClient] GET:@"/api/venues" parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
 		if ([responseObject isKindOfClass:[NSArray class]]) {
 			NSMutableArray *venues = [NSMutableArray array];
-			for (NSDictionary *venue in responseObject) {
-				NSString *venueId = venue[ @"_id" ];
-				NSString *foursquareId = venue[ @"foursquare_id" ];
-				Venue *venue = [[Venue alloc] initWithVenueId:venueId foursquareId:foursquareId];
+			for (NSDictionary *venueDict in responseObject) {
+				Venue *venue = [self venueFromDictionary:venueDict];
 				[venues addObject:venue];
 			}
 			
@@ -96,24 +104,26 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 			NSArray *venuesArray = responseDict[ @"venues" ];
 			for (NSDictionary *venueDict in venuesArray) {
 				NSString *foursquareId = venueDict[ @"id" ];
-				NSString *venueName = venueDict[ @"name" ];
-				/*
-				 "location": {
-				 "address": "1836 W Davis St",
-				 "lat": 32.74920395813301,
-				 "lng": -96.84974424775343,
-				 "distance": 23,
-				 "postalCode": "75208",
-				 "cc": "US",
-				 "city": "Dallas",
-				 "state": "TX",
-				 "country": "United States"
-				 },
-				*/
+				Venue *venue = [Venue venueWithFoursquareId:foursquareId inManagedObjectContext:self.persistenceStack.managedObjectContext];
+				if (venue) {
+					venue.name = venueDict[ @"name" ];
+					[venues addObject:venue];
+					
+					/*
+					 "location": {
+					 "address": "1836 W Davis St",
+					 "lat": 32.74920395813301,
+					 "lng": -96.84974424775343,
+					 "distance": 23,
+					 "postalCode": "75208",
+					 "cc": "US",
+					 "city": "Dallas",
+					 "state": "TX",
+					 "country": "United States"
+					 },
+					 */
+				}
 				
-				Venue *venue = [[Venue alloc] initWithVenueId:@"" foursquareId:foursquareId];
-				venue.name = venueName;
-				[venues addObject:venue];
 			}
 			
 			if (completion) {
@@ -136,7 +146,7 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 	return task;
 }
 
-- (NSURLSessionDataTask *)checkinsWithUserId:(NSString *)userId completion:(void (^)(NSArray *checkins, NSError *error))completion
+- (NSURLSessionDataTask *)checkInsWithUserId:(NSString *)userId completion:(void (^)(NSArray *checkIns, NSError *error))completion
 {
 	id params = @{
 		@"user_id": userId,
@@ -144,28 +154,22 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 	
 	NSURLSessionDataTask *task = [[SLDoubleWideAPIClient sharedClient] GET:@"/api/checkins" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
 		if ([responseObject isKindOfClass:[NSArray class]]) {
-			NSMutableArray *checkins = [NSMutableArray array];
-			for (NSDictionary *checkinDict in responseObject) {
-				NSDictionary *creatorDict = checkinDict[ @"creator" ];
-				NSString *creatorId = creatorDict[ @"_id" ];
-				NSString *nickname = creatorDict[ @"nickname" ];
-				User *user = [[User alloc] initWithDoublewideId:creatorId nickname:nickname];
+			NSMutableArray *checkIns = [NSMutableArray array];
+			for (NSDictionary *checkInDict in responseObject) {
+				User *user = [self userFromDictionary:checkInDict[ @"creator" ]];
+				Venue *venue = [self venueFromDictionary:checkInDict[ @"venue" ]];
 				
-				NSDictionary *venueDict = checkinDict[ @"venue" ];
-				NSString *venueId = venueDict[ @"_id" ];
-				NSString *venueFoursquareId = venueDict[ @"foursquare_id" ];
-				Venue *venue = [[Venue alloc] initWithVenueId:venueId foursquareId:venueFoursquareId];
 				
 				// TODO-MAS: This might be an array
-				NSDictionary *locationDict = checkinDict[ @"location" ];
+				NSDictionary *locationDict = checkInDict[ @"location" ];
 				locationDict = locationDict;
 				
-				Checkin *checkin = nil;
-				[checkins addObject:checkin];
+				CheckIn *checkIn = nil;
+				[checkIns addObject:checkIn];
 			}
 			
 			if (completion) {
-				completion(checkins, nil);
+				completion(checkIns, nil);
 			}
 		}
 		else {
@@ -184,7 +188,7 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 	return task;
 }
 
-- (NSURLSessionDataTask *)checkinsWithVenueId:(NSString *)venueId completion:(void (^)(NSArray *checkins, NSError *error))completion
+- (NSURLSessionDataTask *)checkInsWithVenueId:(NSString *)venueId completion:(void (^)(NSArray *checkIns, NSError *error))completion
 {
 	id params = @{
 	  @"venue_id": venueId,
@@ -192,28 +196,21 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 	
 	NSURLSessionDataTask *task = [[SLDoubleWideAPIClient sharedClient] GET:@"/api/checkins" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
 		if ([responseObject isKindOfClass:[NSArray class]]) {
-			NSMutableArray *checkins = [NSMutableArray array];
-			for (NSDictionary *checkinDict in responseObject) {
-				NSDictionary *creatorDict = checkinDict[ @"creator" ];
-				NSString *creatorId = creatorDict[ @"_id" ];
-				NSString *nickname = creatorDict[ @"nickname" ];
-				User *user = [[User alloc] initWithDoublewideId:creatorId nickname:nickname];
-				
-				NSDictionary *venueDict = checkinDict[ @"venue" ];
-				NSString *venueId = venueDict[ @"_id" ];
-				NSString *venueFoursquareId = venueDict[ @"foursquare_id" ];
-				Venue *venue = [[Venue alloc] initWithVenueId:venueId foursquareId:venueFoursquareId];
+			NSMutableArray *checkIns = [NSMutableArray array];
+			for (NSDictionary *checkInDict in responseObject) {
+				User *user = [self userFromDictionary:checkInDict[ @"creator" ]];
+				Venue *venue = [self venueFromDictionary:checkInDict[ @"venue" ]];
 				
 				// TODO-MAS: This might be an array
-				NSDictionary *locationDict = checkinDict[ @"location" ];
+				NSDictionary *locationDict = checkInDict[ @"location" ];
 				locationDict = locationDict;
 				
-				Checkin *checkin = nil;//[[Checkin alloc] initWithUser:user venue:venue];
-				[checkins addObject:checkin];
+				CheckIn *checkIn = nil;//[[Checkin alloc] initWithUser:user venue:venue];
+				[checkIns addObject:checkIn];
 			}
 			
 			if (completion) {
-				completion(checkins, nil);
+				completion(checkIns, nil);
 			}
 		}
 		else {
@@ -232,7 +229,7 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 	return task;
 }
 
-- (NSURLSessionDataTask *)checkinWithCoordinate:(CLLocationCoordinate2D)coordinate foursquareId:(NSString *)foursquareId completion:(void (^)(Checkin *checkin, NSError *error))completion
+- (NSURLSessionDataTask *)checkInWithCoordinate:(CLLocationCoordinate2D)coordinate foursquareId:(NSString *)foursquareId completion:(void (^)(CheckIn *checkIn, NSError *error))completion
 {
 	id params = @{
 		//@"auth_token" TODO-MAS: remove this? is auth_token being injected somewhere
@@ -243,29 +240,27 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 	
 	NSURLSessionDataTask *task = [[SLDoubleWideAPIClient sharedClient] POST:@"/api/checkins" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
 		if ([responseObject isKindOfClass:[NSDictionary class]]) {
-			NSDictionary *checkinDict = responseObject[ @"checkin" ];
-			NSString *checkinId = checkinDict[ @"_id" ];
-			NSString *creationDateString = checkinDict[ @"createdAt" ];
+			NSDictionary *checkInDict = responseObject[ @"checkin" ];
 			
-			NSDictionary *creatorDict = checkinDict[ @"creator" ];
-			NSString *creatorId = creatorDict[ @"_id" ];
-			NSString *nickname = creatorDict[ @"nickname" ];
-			User *user = [[User alloc] initWithDoublewideId:creatorId nickname:nickname];
-			
-			NSDictionary *venueDict = checkinDict[ @"venue" ];
-			NSString *venueId = venueDict[ @"_id" ];
-			NSString *venueFoursquareId = venueDict[ @"foursquare_id" ];
-			Venue *venue = [[Venue alloc] initWithVenueId:venueId foursquareId:venueFoursquareId];
-			
-			Checkin *checkin = nil;
-			NSArray *locationArray = checkinDict[ @"loc" ];
-			if (locationArray.count > 1) {
-				CLLocationCoordinate2D locationCoordinate = CLLocationCoordinate2DMake(((NSNumber *)locationArray[ 0 ]).doubleValue, ((NSNumber *)locationArray[ 1 ] ).doubleValue);
-				checkin = [[Checkin alloc] initWithId:checkinId user:user venue:venue creationDateString:creationDateString];
+			NSString *doubleWideId = checkInDict[ @"_id" ];
+			CheckIn *checkIn = [CheckIn checkInWithDoubleWideId:doubleWideId inManagedObjectContext:self.persistenceStack.managedObjectContext];
+			if (checkIn) {
+				checkIn.user = [self userFromDictionary:checkInDict[ @"creator" ]];
+				checkIn.venue = [self venueFromDictionary:checkInDict[ @"venue" ]];
+				
+				NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+				[dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+				checkIn.creationDate = [dateFormat dateFromString:checkInDict[ @"createdAt" ]];
+				
+				NSArray *locationArray = checkInDict[ @"loc" ];
+				if (locationArray.count == 2) {
+					checkIn.latitude = locationArray[ 0 ];
+					checkIn.longitude = locationArray[ 1 ];
+				}
 			}
-			
+
 			if (completion) {
-				completion(checkin, nil);
+				completion(checkIn, nil);
 			}
 		}
 		else {
@@ -294,6 +289,32 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 - (void)tokenChanged:(NSNotification *)notification
 {
 	[self setAuthTokenHeader];
+}
+
+- (User *)userFromDictionary:(NSDictionary *)dictionary
+{
+	User *user = nil;
+		
+	NSString *doubleWideId = dictionary[ @"_id" ];
+	if (doubleWideId) {
+		user = [User userWithDoubleWideId:doubleWideId inManagedObjectContext:self.persistenceStack.managedObjectContext];
+		user.nickname = dictionary[ @"nickname" ];
+	}
+	
+	return user;
+}
+
+- (Venue *)venueFromDictionary:(NSDictionary *)dictionary
+{
+	Venue *venue = nil;
+	
+	NSString *doubleWideId = dictionary[ @"_id" ];
+	if (doubleWideId) {
+		venue = [Venue venueWithDoubleWideId:doubleWideId inManagedObjectContext:self.persistenceStack.managedObjectContext];
+		venue.foursquareId = dictionary[ @"foursquare_id" ];
+	}
+	
+	return venue;
 }
 
 @end
