@@ -37,6 +37,8 @@
 		D8B1704318B306E400BFC8CE /* SLVenueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D8B1704218B306E400BFC8CE /* SLVenueViewController.m */; };
 		D8D6820418B30E0D00D2CF1E /* SingleWide.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = D8D6820218B30E0D00D2CF1E /* SingleWide.xcdatamodeld */; };
 		D8D6820718B30ECE00D2CF1E /* SLPersistenceStack.m in Sources */ = {isa = PBXBuildFile; fileRef = D8D6820618B30ECE00D2CF1E /* SLPersistenceStack.m */; };
+		D8DB1EB118B4592B004A40C9 /* SLFetchedResultsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DB1EB018B4592B004A40C9 /* SLFetchedResultsDataSource.m */; };
+		D8DB1EB418B46007004A40C9 /* NearbyVenue.m in Sources */ = {isa = PBXBuildFile; fileRef = D8DB1EB318B46007004A40C9 /* NearbyVenue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +101,10 @@
 		D8D6820318B30E0D00D2CF1E /* SingleWide.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SingleWide.xcdatamodel; sourceTree = "<group>"; };
 		D8D6820518B30ECE00D2CF1E /* SLPersistenceStack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLPersistenceStack.h; sourceTree = "<group>"; };
 		D8D6820618B30ECE00D2CF1E /* SLPersistenceStack.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLPersistenceStack.m; sourceTree = "<group>"; };
+		D8DB1EAF18B4592B004A40C9 /* SLFetchedResultsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SLFetchedResultsDataSource.h; sourceTree = "<group>"; };
+		D8DB1EB018B4592B004A40C9 /* SLFetchedResultsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SLFetchedResultsDataSource.m; sourceTree = "<group>"; };
+		D8DB1EB218B46007004A40C9 /* NearbyVenue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NearbyVenue.h; sourceTree = "<group>"; };
+		D8DB1EB318B46007004A40C9 /* NearbyVenue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NearbyVenue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +234,8 @@
 			children = (
 				D83DBD1718AB1DF9004E182A /* SLAppDelegate.h */,
 				D83DBD1818AB1DF9004E182A /* SLAppDelegate.m */,
+				D8DB1EAF18B4592B004A40C9 /* SLFetchedResultsDataSource.h */,
+				D8DB1EB018B4592B004A40C9 /* SLFetchedResultsDataSource.m */,
 				D87978F618B05A8D0042FF70 /* SLTableViewDataSource.h */,
 				D87978F718B05A8D0042FF70 /* SLTableViewDataSource.m */,
 			);
@@ -259,6 +267,8 @@
 			children = (
 				D87978FD18B0602A0042FF70 /* CheckIn.h */,
 				D87978FE18B0602A0042FF70 /* CheckIn.m */,
+				D8DB1EB218B46007004A40C9 /* NearbyVenue.h */,
+				D8DB1EB318B46007004A40C9 /* NearbyVenue.m */,
 				D8D6820218B30E0D00D2CF1E /* SingleWide.xcdatamodeld */,
 				D879790018B060520042FF70 /* User.h */,
 				D879790118B060520042FF70 /* User.m */,
@@ -417,6 +427,7 @@
 				D87978F818B05A8D0042FF70 /* SLTableViewDataSource.m in Sources */,
 				D879790218B060520042FF70 /* User.m in Sources */,
 				D87978E018B03B640042FF70 /* SLUserAuthenticator.m in Sources */,
+				D8DB1EB118B4592B004A40C9 /* SLFetchedResultsDataSource.m in Sources */,
 				D87978EB18B046FB0042FF70 /* SLAccountCreationViewController.m in Sources */,
 				D8D6820718B30ECE00D2CF1E /* SLPersistenceStack.m in Sources */,
 				D83DBD1518AB1DF9004E182A /* main.m in Sources */,
@@ -426,6 +437,7 @@
 				D83DBD1F18AB1DF9004E182A /* SLViewController.m in Sources */,
 				D87978E718B03F250042FF70 /* SLDoubleWideAPIClient.m in Sources */,
 				D83DBD1918AB1DF9004E182A /* SLAppDelegate.m in Sources */,
+				D8DB1EB418B46007004A40C9 /* NearbyVenue.m in Sources */,
 				D8B1704318B306E400BFC8CE /* SLVenueViewController.m in Sources */,
 				D87978FF18B0602A0042FF70 /* CheckIn.m in Sources */,
 			);

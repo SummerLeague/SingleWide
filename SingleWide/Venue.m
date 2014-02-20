@@ -7,6 +7,7 @@
 //
 
 #import "Venue.h"
+#import "NearbyVenue.h"
 
 @interface Venue ()
 

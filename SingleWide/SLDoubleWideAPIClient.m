@@ -12,6 +12,7 @@
 #import "Checkin.h"
 #import "User.h"
 #import "Venue.h"
+#import "NearbyVenue.h"
 
 //static NSString *serverAddress = @"http://127.0.0.1:8888";
 //static NSString *serverAddress = @"http://10.0.1.7:8888";
@@ -92,9 +93,12 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 
 - (NSURLSessionDataTask *)venuesNearCoordinate:(CLLocationCoordinate2D)coordinate completion:(void (^)(NSArray *venues, NSError *error))completion
 {
+	NSNumber *latitude = [NSNumber numberWithDouble:coordinate.latitude];
+	NSNumber *longitude = [NSNumber numberWithDouble:coordinate.longitude];
+
 	id params = @{
-		@"lng": [NSNumber numberWithDouble:coordinate.longitude],
-		@"lat": [NSNumber numberWithDouble:coordinate.latitude],
+		@"lng": longitude,
+		@"lat": latitude,
 	};
 
 	NSURLSessionDataTask *task = [[SLDoubleWideAPIClient sharedClient] GET:@"/api/venues/search" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
@@ -102,6 +106,7 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 			NSDictionary *responseDict = responseObject[ @"response" ];
 			NSMutableArray *venues = [NSMutableArray array];
 			NSArray *venuesArray = responseDict[ @"venues" ];
+			int index = 0;
 			for (NSDictionary *venueDict in venuesArray) {
 				NSString *foursquareId = venueDict[ @"id" ];
 				Venue *venue = [Venue venueWithFoursquareId:foursquareId inManagedObjectContext:self.persistenceStack.managedObjectContext];
@@ -109,8 +114,14 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 					venue.name = venueDict[ @"name" ];
 					venue.latitude = venueDict[ @"location" ][ @"lat" ];
 					venue.longitude = venueDict[ @"location" ][ @"lng" ];
-					[venues addObject:venue];
 				}
+				
+				NearbyVenue *nearbyVenue = [NearbyVenue nearbyVenueWithLatitude:latitude longitude:longitude venue:venue inManagedObjectContext:self.persistenceStack.managedObjectContext];
+				if (nearbyVenue) {
+					nearbyVenue.index = [NSNumber numberWithInt:index++];
+				}
+				
+				[venues addObject:nearbyVenue];
 			}
 			
 			[self.persistenceStack save];

@@ -7,16 +7,17 @@
 //
 
 #import "SLVenueViewController.h"
-#import "SLTableViewDataSource.h"
+#import "SLFetchedResultsDataSource.h"
 #import "SLDoubleWideAPIClient.h"
 #import "Venue.h"
+#import "NearbyVenue.h"
 
-@interface SLVenueViewController () <SLTableViewDataSourceDelegate>
+@interface SLVenueViewController () <SLFetchedResultsDataSourceDelegate>
 
 @property (nonatomic, weak) IBOutlet MKMapView *mapView;
 @property (nonatomic, weak) IBOutlet UITableView *tableView;
 @property (nonatomic, weak) IBOutlet UIButton *checkInButton;
-@property (nonatomic, strong) SLTableViewDataSource *dataSource;
+@property (nonatomic, strong) SLFetchedResultsDataSource *dataSource;
 @property (nonatomic, strong) MKPointAnnotation *annotation;
 @property (nonatomic, strong) NSURLSessionDataTask *checkInTask;
 
@@ -30,7 +31,8 @@
 {
 	[super viewDidLoad];
 	
-	self.dataSource = [[SLTableViewDataSource alloc] initWithTableView:self.tableView];
+	NSFetchedResultsController *fetchedResultsController = [NearbyVenue nearbyVenueFetchedResultsControllerWithLatitude:self.venue.latitude longitude:self.venue.longitude inManagedObjectContext:[SLDoubleWideAPIClient sharedClient].managedObjectContext];
+	self.dataSource = [[SLFetchedResultsDataSource alloc] initWithFetchedResultsController:fetchedResultsController tableView:self.tableView];
 	self.dataSource.delegate = self;
 	self.dataSource.reusableCellIdentifier = @"cell";
 }
@@ -44,6 +46,8 @@
 	
 	self.annotation = [[MKPointAnnotation alloc] init];
 	self.annotation.coordinate = CLLocationCoordinate2DMake(self.venue.latitude.doubleValue, self.venue.longitude.doubleValue);
+	self.annotation.title = self.venue.name;
+	self.annotation.subtitle = [NSString stringWithFormat:@"(%.4f, %.4f)", self.venue.latitude.floatValue, self.venue.longitude.floatValue];
 	[self.mapView addAnnotation:self.annotation];
 	[self.mapView selectAnnotation:self.annotation animated:YES];
 	
@@ -62,8 +66,7 @@
 {
 	[super decodeRestorableStateWithCoder:coder];
 	NSString *foursquareId = [coder decodeObjectForKey:@"venue.foursquareId"];
-	if( foursquareId )
-	{
+	if (foursquareId) {
 		NSManagedObjectContext *managedObjectContext = [SLDoubleWideAPIClient sharedClient].managedObjectContext;
 		self.venue = [Venue venueWithFoursquareId:foursquareId inManagedObjectContext:managedObjectContext];
 	}

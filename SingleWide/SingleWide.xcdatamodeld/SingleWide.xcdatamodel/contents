@@ -8,10 +8,16 @@
         <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="checkIns" inverseEntity="User" syncable="YES"/>
         <relationship name="venue" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Venue" inverseName="checkIns" inverseEntity="Venue" syncable="YES"/>
     </entity>
+    <entity name="NearbyVenue" representedClassName="NearByVenueRequest" syncable="YES">
+        <attribute name="index" optional="YES" attributeType="Integer 32" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
+        <relationship name="venue" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Venue" syncable="YES"/>
+    </entity>
     <entity name="User" representedClassName="User" syncable="YES">
         <attribute name="doubleWideId" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="nickname" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="checkIns" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CheckIn" inverseName="user" inverseEntity="CheckIn" syncable="YES"/>
+        <relationship name="checkIns" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CheckIn" inverseName="user" inverseEntity="CheckIn" syncable="YES"/>
     </entity>
     <entity name="Venue" representedClassName="Venue" syncable="YES">
         <attribute name="doubleWideId" optional="YES" attributeType="String" syncable="YES"/>
@@ -19,10 +25,11 @@
         <attribute name="latitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="longitude" optional="YES" attributeType="Double" defaultValueString="0.0" syncable="YES"/>
         <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="checkIns" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="CheckIn" inverseName="venue" inverseEntity="CheckIn" syncable="YES"/>
+        <relationship name="checkIns" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="CheckIn" inverseName="venue" inverseEntity="CheckIn" syncable="YES"/>
     </entity>
     <elements>
         <element name="CheckIn" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="NearbyVenue" positionX="0" positionY="0" width="0" height="0"/>
         <element name="User" positionX="0" positionY="0" width="0" height="0"/>
         <element name="Venue" positionX="0" positionY="0" width="0" height="0"/>
     </elements>

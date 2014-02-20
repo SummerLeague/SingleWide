@@ -151,16 +151,8 @@
                                 <rect key="frame" x="0.0" y="264" width="320" height="304"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9cZ-8m-npD" userLabel="Separator">
-                                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="QFa-0Z-Mxa"/>
-                                        </constraints>
-                                    </view>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fCZ-qQ-G4A">
-                                        <rect key="frame" x="0.0" y="1" width="320" height="303"/>
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="CheckInTableView" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="fCZ-qQ-G4A">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="304"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <prototypes>
@@ -183,23 +175,14 @@
                                             </tableViewCell>
                                         </prototypes>
                                     </tableView>
-                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="LrD-w1-Nr9">
-                                        <rect key="frame" x="150" y="142" width="20" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.50196081399917603" blue="1" alpha="0.029999999999999999" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="9cZ-8m-npD" firstAttribute="leading" secondItem="GuF-KF-p6k" secondAttribute="leading" id="H3N-gq-9Pu"/>
-                                    <constraint firstItem="9cZ-8m-npD" firstAttribute="top" secondItem="GuF-KF-p6k" secondAttribute="top" id="LhZ-8H-Cfo"/>
-                                    <constraint firstAttribute="centerX" secondItem="LrD-w1-Nr9" secondAttribute="centerX" id="Rfw-QO-fBd"/>
+                                    <constraint firstItem="fCZ-qQ-G4A" firstAttribute="top" secondItem="GuF-KF-p6k" secondAttribute="top" id="6p9-qt-Ave"/>
                                     <constraint firstAttribute="trailing" secondItem="fCZ-qQ-G4A" secondAttribute="trailing" id="ULO-w5-shC"/>
-                                    <constraint firstAttribute="centerY" secondItem="LrD-w1-Nr9" secondAttribute="centerY" id="fMJ-oN-87A"/>
-                                    <constraint firstItem="fCZ-qQ-G4A" firstAttribute="top" secondItem="9cZ-8m-npD" secondAttribute="bottom" id="kKH-QI-Srb"/>
                                     <constraint firstAttribute="bottom" secondItem="fCZ-qQ-G4A" secondAttribute="bottom" id="ney-DA-1eQ"/>
                                     <constraint firstItem="fCZ-qQ-G4A" firstAttribute="leading" secondItem="GuF-KF-p6k" secondAttribute="leading" id="nvS-bD-4MG"/>
                                     <constraint firstAttribute="bottom" secondItem="fCZ-qQ-G4A" secondAttribute="bottom" id="wW5-at-K76"/>
-                                    <constraint firstAttribute="trailing" secondItem="9cZ-8m-npD" secondAttribute="trailing" id="wwn-er-TjA"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -216,7 +199,6 @@
                     </view>
                     <navigationItem key="navigationItem" title="Check In" id="Qnd-VP-Q29"/>
                     <connections>
-                        <outlet property="activityIndicator" destination="LrD-w1-Nr9" id="10c-gJ-eBp"/>
                         <outlet property="mapView" destination="IIx-hI-6aC" id="jAS-Mh-nYU"/>
                         <outlet property="tableView" destination="fCZ-qQ-G4A" id="Etv-1o-kFg"/>
                         <segue destination="L5s-OW-Dz6" kind="push" identifier="checkInSegue" id="aJ6-DK-8GF"/>
@@ -256,7 +238,7 @@
                                     <action selector="checkIn:" destination="L5s-OW-Dz6" eventType="touchUpInside" id="8Tq-gP-Iwz"/>
                                 </connections>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="7wN-NB-pRE">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="VenueTableView" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="7wN-NB-pRE">
                                 <rect key="frame" x="0.0" y="310" width="320" height="258"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
