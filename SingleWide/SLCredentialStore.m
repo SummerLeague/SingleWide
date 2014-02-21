@@ -32,6 +32,7 @@ static NSString *PasswordKey = @"password";
 
 - (NSString *)authToken
 {
+	NSLog(@"authToken: %@", [self secureValueForKey:AuthTokenKey]);
 	return [self secureValueForKey:AuthTokenKey];
 }
 

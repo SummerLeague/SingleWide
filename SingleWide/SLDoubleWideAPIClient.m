@@ -148,78 +148,50 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 
 - (NSURLSessionDataTask *)checkInsWithUserId:(NSString *)userId completion:(void (^)(NSArray *checkIns, NSError *error))completion
 {
-	id params = @{
-		@"user_id": userId,
-	};
-	
-	NSURLSessionDataTask *task = [[SLDoubleWideAPIClient sharedClient] GET:@"/api/checkins" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-		if ([responseObject isKindOfClass:[NSArray class]]) {
-			NSMutableArray *checkIns = [NSMutableArray array];
-			for (NSDictionary *checkInDict in responseObject) {
-				User *user = [self userFromDictionary:checkInDict[ @"creator" ]];
-				Venue *venue = [self venueFromDictionary:checkInDict[ @"venue" ]];
-				
-				// TODO-MAS: This might be an array
-				NSDictionary *locationDict = checkInDict[ @"location" ];
-				locationDict = locationDict;
-				
-				CheckIn *checkIn = nil;
-				[checkIns addObject:checkIn];
-			}
-			
-			if (completion) {
-				completion(checkIns, nil);
-			}
-		}
-		else {
-			/* Response was not a NSArray */
-			if (completion) {
-				completion(nil, nil);
-			}
-		}
-	}
-	failure:^(NSURLSessionDataTask *task, NSError *error) {
-		if (completion) {
-			completion(nil, error);
-		}
-	}];
-	
-	return task;
+	return nil;
 }
 
 - (NSURLSessionDataTask *)checkInsWithVenueId:(NSString *)venueId completion:(void (^)(NSArray *checkIns, NSError *error))completion
 {
-	id params = @{
-	  @"venue_id": venueId,
-	};
+	NSString *path = [NSString stringWithFormat:@"/api/checkins?foursquare_id=%@", venueId];
 	
-	NSURLSessionDataTask *task = [[SLDoubleWideAPIClient sharedClient] GET:@"/api/checkins" parameters:params success:^(NSURLSessionDataTask *task, id responseObject) {
-		if ([responseObject isKindOfClass:[NSArray class]]) {
+	NSURLSessionDataTask *task = [[SLDoubleWideAPIClient sharedClient] GET:path parameters:nil success:^(NSURLSessionDataTask *task, id responseObject) {
+		if ([responseObject isKindOfClass:[NSDictionary class]]) {
 			NSMutableArray *checkIns = [NSMutableArray array];
-			for (NSDictionary *checkInDict in responseObject) {
-				User *user = [self userFromDictionary:checkInDict[ @"creator" ]];
-				Venue *venue = [self venueFromDictionary:checkInDict[ @"venue" ]];
-				
-				// TODO-MAS: This might be an array
-				NSDictionary *locationDict = checkInDict[ @"location" ];
-				locationDict = locationDict;
-				
-				CheckIn *checkIn = nil;//[[Checkin alloc] initWithUser:user venue:venue];
-				[checkIns addObject:checkIn];
+			for (NSDictionary *checkInDict in responseObject[ @"checkins" ]) {
+				NSString *checkInId = checkInDict[ @"_id" ];
+				CheckIn *checkIn = [CheckIn checkInWithDoubleWideId:checkInId inManagedObjectContext:self.persistenceStack.managedObjectContext];
+				if (checkIn) {
+					checkIn.user = [self userFromDictionary:checkInDict[ @"creator" ]];
+					checkIn.venue = [self venueFromDictionary:checkInDict[ @"venue" ]];
+					
+					NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+					[dateFormat setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"];
+					checkIn.creationDate = [dateFormat dateFromString:checkInDict[ @"createdAt" ]];
+					
+					NSArray *locationArray = checkInDict[ @"loc" ];
+					if (locationArray.count == 2) {
+						checkIn.latitude = locationArray[ 0 ];
+						checkIn.longitude = locationArray[ 1 ];
+					}
+
+					[checkIns addObject:checkIn];
+				}
 			}
-			
+
 			if (completion) {
 				completion(checkIns, nil);
 			}
 		}
 		else {
-			/* Response was not a NSArray */
+			/* Response was not a NSDictionary */
 			if (completion) {
 				completion(nil, nil);
 			}
 		}
 	}
 	failure:^(NSURLSessionDataTask *task, NSError *error) {
+		NSLog(@"Error: %@", error);
 		if (completion) {
 			completion(nil, error);
 		}
@@ -307,10 +279,10 @@ static NSString *serverAddress = @"http://rocky-fjord-4357.herokuapp.com/";
 {
 	Venue *venue = nil;
 	
-	NSString *doubleWideId = dictionary[ @"_id" ];
-	if (doubleWideId) {
-		venue = [Venue venueWithDoubleWideId:doubleWideId inManagedObjectContext:self.persistenceStack.managedObjectContext];
-		venue.foursquareId = dictionary[ @"foursquare_id" ];
+	NSString *foursquareId = dictionary[ @"foursquare_id" ];
+	if (foursquareId) {
+		venue = [Venue venueWithFoursquareId:foursquareId inManagedObjectContext:self.persistenceStack.managedObjectContext];
+		venue.doubleWideId = dictionary[ @"_id" ];
 	}
 	
 	return venue;

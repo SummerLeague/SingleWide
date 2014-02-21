@@ -26,4 +26,6 @@
 
 + (NSString *)entityName;
 
++ (NSFetchedResultsController *)checkInFetchedResultsControllerWithVenue:(Venue *)venue inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext;
+
 @end

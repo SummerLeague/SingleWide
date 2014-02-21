@@ -30,13 +30,21 @@
 		checkIn = [NSEntityDescription insertNewObjectForEntityForName:self.entityName inManagedObjectContext:managedObjectContext];
 		checkIn.doubleWideId = doubleWideId;
 	}
-	
+		
 	return checkIn;
 }
 
 + (NSString *)entityName
 {
 	return @"CheckIn";
+}
+
++ (NSFetchedResultsController *)checkInFetchedResultsControllerWithVenue:(Venue *)venue inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
+{
+	NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:self.entityName];
+	request.predicate = [NSPredicate predicateWithFormat:@"venue = %@", venue];
+	request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"creationDate" ascending:YES]];
+	return [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];
 }
 
 + (instancetype)findCheckInWithPredicate:(NSPredicate *)predicate inManagedObjectContext:(NSManagedObjectContext *)managedObjectContext

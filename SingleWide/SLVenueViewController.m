@@ -10,7 +10,8 @@
 #import "SLFetchedResultsDataSource.h"
 #import "SLDoubleWideAPIClient.h"
 #import "Venue.h"
-#import "NearbyVenue.h"
+#import "CheckIn.h"
+#import "User.h"
 
 @interface SLVenueViewController () <SLFetchedResultsDataSourceDelegate>
 
@@ -31,7 +32,7 @@
 {
 	[super viewDidLoad];
 	
-	NSFetchedResultsController *fetchedResultsController = [NearbyVenue nearbyVenueFetchedResultsControllerWithLatitude:self.venue.latitude longitude:self.venue.longitude inManagedObjectContext:[SLDoubleWideAPIClient sharedClient].managedObjectContext];
+	NSFetchedResultsController *fetchedResultsController = [CheckIn checkInFetchedResultsControllerWithVenue:self.venue inManagedObjectContext:[SLDoubleWideAPIClient sharedClient].managedObjectContext];
 	self.dataSource = [[SLFetchedResultsDataSource alloc] initWithFetchedResultsController:fetchedResultsController tableView:self.tableView];
 	self.dataSource.delegate = self;
 	self.dataSource.reusableCellIdentifier = @"cell";
@@ -54,6 +55,12 @@
 	MKCoordinateRegion region = MKCoordinateRegionMake(self.annotation.coordinate, MKCoordinateSpanMake(0.0035, 0.0035));
 	[self.mapView setCenterCoordinate:self.annotation.coordinate animated:YES];
 	[self.mapView setRegion:region animated:YES];
+		
+	[[SLDoubleWideAPIClient sharedClient] checkInsWithVenueId:self.venue.foursquareId completion:^(NSArray *checkIns, NSError *error) {
+		dispatch_async( dispatch_get_main_queue(), ^{
+			[self.tableView reloadData];
+		});
+	}];
 }
 
 - (void)encodeRestorableStateWithCoder:(NSCoder *)coder
@@ -91,9 +98,9 @@
 
 - (void)configureCell:(id)cell withObject:(id)object
 {
-	Venue *venue = object;
+	CheckIn *checkIn = object;
 	UITableViewCell *tableViewCell = cell;
-	tableViewCell.textLabel.text = venue.name;
+	tableViewCell.textLabel.text = checkIn.user.nickname;
 }
 
 @end
